@@ -1,30 +1,30 @@
 # Setup
 
-# Clone code
+## Clone code
 
     git clone git@github.com:noefroidevaux/rails-workshop.git
 
-# Install VirtualBox, Vagrant and Ansible
+## Install VirtualBox, Vagrant and Ansible
 * VirtualBox: https://www.virtualbox.org/wiki/Downloads
 * Vagrant: https://www.vagrantup.com/downloads.html
 * Ansible: http://docs.ansible.com/intro_installation.html#latest-releases-via-apt-ubuntu
 
-# Config
+## Config
 Create a .env file in the project folder and add:
 
     RACK_ENV=development
     PORT=5000
 
-# Start Vagrant box
+## Start Vagrant box
 vagrant up
 
-# Start server
+## Start server
 
-## ssh Vagrant box
+### ssh Vagrant box
 
     vagrant ssh
 
-## Run server
+### Run server
 
     foreman start
 
