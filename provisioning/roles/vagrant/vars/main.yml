@@ -1,0 +1,11 @@
+---
+db_user: postgres
+db_password: postgres
+db_name_development: railsws_development
+db_name_test: railsws_test
+db_host: localhost
+
+project_root: /vagrant
+
+rbenv_root: /home/vagrant/.rbenv
+ruby_version: 2.1.5

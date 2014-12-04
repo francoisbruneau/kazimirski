@@ -1,0 +1,14 @@
+---
+- name: application | install foreman (not in Gemfile)
+  shell: bash -lc "gem install foreman"
+  sudo: no
+
+- name: application | bundle install (install all gems)
+  shell: bash -lc "bundle install"
+  args:
+    chdir: "{{ project_root }}"
+  sudo: no
+
+- name: application | rehash after installing all gems
+  shell: bash -lc "RBENV_ROOT={{rbenv_root}} rbenv rehash"
+  sudo: no

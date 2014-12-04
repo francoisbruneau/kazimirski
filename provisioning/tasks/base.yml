@@ -1,0 +1,12 @@
+---
+- name: base | ensure apt database is up-to-date
+  apt: update_cache=yes
+
+- name: base | ensure base packages are installed
+  apt: pkg={{ item }} state=present
+  with_items:
+      - vim
+      - tmux
+
+- name: base | set a vagrant bash script
+  template: src=../templates/vagrant.sh.j2 dest=/etc/profile.d/vagrant.sh owner=root group=root mode=0755

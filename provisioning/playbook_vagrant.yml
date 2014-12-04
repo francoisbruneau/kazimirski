@@ -1,0 +1,11 @@
+---
+- hosts: all
+  roles:
+    - vagrant
+  sudo: yes
+  tasks:
+      - include: tasks/base.yml
+      - include: tasks/postgresql.yml
+      - include: tasks/ruby.yml
+      - include: tasks/application.yml
+

@@ -1,0 +1,29 @@
+---
+- name: postgresql | disallow setting of LANG and LOCALE
+  lineinfile: dest=/etc/ssh/sshd_config line='AcceptEnv LANG LC_*' state=absent
+  notify: restart ssh
+
+- name: postgresql | ensure python-psycopg2 is present
+  apt: pkg=python-psycopg2 state=present
+
+- name: postgresql | ensure postgresql is installed
+  apt: pkg=postgresql state=present
+
+- name: postgresql | ensure postgresql start at boot
+  service: name=postgresql enabled=yes state=started
+
+- name: postgresql | ensure database for development exists
+  postgresql_db: "name={{ db_name_development }} state=present"
+  sudo_user: postgres
+
+- name: postgresql | ensure user exists for development database
+  postgresql_user: "db={{ db_name_development }} name={{ db_user }} password={{ db_password }}"
+  sudo_user: postgres
+
+- name: postgresql | ensure database for test exists
+  postgresql_db: "name={{ db_name_test }} state=present"
+  sudo_user: postgres
+
+- name: postgresql | ensure user exists for test database
+  postgresql_user: "db={{ db_name_test }} name={{ db_user }} password={{ db_password }}"
+  sudo_user: postgres
