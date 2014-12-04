@@ -16,7 +16,8 @@ Create a .env file in the project folder and add:
     PORT=5000
 
 ## Start Vagrant box
-vagrant up
+
+    vagrant up
 
 ## Start server
 
