@@ -1,4 +1,4 @@
 ---
 - name: restart ssh
-  action: service name=ssh state=restarted
+  service: name=ssh state=restarted
   sudo: yes

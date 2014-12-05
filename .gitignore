@@ -18,3 +18,4 @@
 
 # Ignore .env file
 .env
+.vagrant
