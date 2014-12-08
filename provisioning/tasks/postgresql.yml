@@ -1,7 +1,9 @@
 ---
-- name: postgresql | disallow setting of LANG and LOCALE
-  lineinfile: dest=/etc/ssh/sshd_config line='AcceptEnv LANG LC_*' state=absent
-  notify: restart ssh
+- name: postgresql | Be sure to have the right LC_ALL env var
+  lineinfile: dest=/etc/environment line=LC_ALL="en_US.utf-8"
+
+- name: postgresql | Reload /etc/environement
+  shell: bash -lc "source /etc/environment"
 
 - name: postgresql | ensure python-psycopg2 is present
   apt: pkg=python-psycopg2 state=present
