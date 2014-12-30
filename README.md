@@ -2,7 +2,7 @@
 
 ## Clone code
 
-    git clone git@github.com:noefroidevaux/rails-workshop.git
+    git clone [TODO]
 
 ## Install VirtualBox, Vagrant and Ansible
 * VirtualBox: https://www.virtualbox.org/wiki/Downloads
@@ -30,3 +30,8 @@ Create a .env file in the project folder and add:
     foreman start
 
 Go to [http://localhost:5000](http://localhost:5000)
+
+# Acknowledgements
+
+Thanks to @noefroidevaux for the base Vagrant/Ansible/Ruby/Rails setup:
+https://github.com/noefroidevaux/rails-workshop
