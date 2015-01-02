@@ -13,6 +13,12 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
+    <% if current_user.present? %>
+      <p><%= link_to 'Déconnexion', destroy_user_session_path, method: :delete %></p>
+    <% else %>
+      <p><%= link_to 'Connexion', new_user_session_path %></p>
+    <% end %>
+
     <%= yield %>
 
     <%= javascript_include_tag 'application' %>

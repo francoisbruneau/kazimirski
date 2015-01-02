@@ -19,3 +19,9 @@
 # Ignore .env file
 .env
 .vagrant
+
+# Ignore IDEA files
+.idea
+
+# Ignore OS X files
+.DS_store

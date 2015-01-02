@@ -28,3 +28,8 @@ body {
   padding-top: 0px;
   padding-bottom: 20px;
 }
+
+/* Remove underline on required field labels */
+abbr[title] {
+  border-bottom: none;
+}
