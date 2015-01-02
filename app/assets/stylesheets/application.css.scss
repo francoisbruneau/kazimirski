@@ -37,3 +37,13 @@ abbr[title] {
 nav .alert {
   padding: 0;
 }
+
+.navbar-landing {
+  background: none;
+  border: 0;
+  box-shadow: none;
+
+  .navbar-header {
+    display: none;
+  }
+}
