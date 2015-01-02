@@ -10,14 +10,25 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Projet Kazimirski</a>
+        </div>
 
-    <% if current_user.present? %>
-      <p><%= link_to 'Déconnexion', destroy_user_session_path, method: :delete %></p>
-    <% else %>
-      <p><%= link_to 'Connexion', new_user_session_path %></p>
-    <% end %>
+        <p class="notice navbar-text"><%= notice %></p>
+        <p class="alert navbar-text"><%= alert %></p>
+
+        <ul class="nav navbar-right navbar-nav">
+        <% if current_user.present? %>
+          <li><%= link_to 'Déconnexion', destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to 'Connexion', new_user_session_path %></li>
+        <% end %>
+        </ul>
+
+      </div>
+    </nav>
 
     <%= yield %>
 
