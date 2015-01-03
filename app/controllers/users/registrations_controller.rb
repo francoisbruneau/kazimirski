@@ -1,0 +1,88 @@
+class Users::RegistrationsController < Devise::RegistrationsController
+# before_filter :configure_sign_up_params, only: [:create]
+# before_filter :configure_account_update_params, only: [:update]
+
+  #GET /resource/sign_up
+  def new
+    @captcha = random_captcha
+    super
+  end
+
+  # POST /resource
+  def create
+    @captcha = random_captcha # Pick a new captcha in case a registration attempt has failed
+    if verify_captcha
+      super
+    else
+      build_resource(sign_up_params)
+      clean_up_passwords(resource)
+      flash.now[:alert] = "Il y a eu une erreur dans la validation du Captcha. Veuillez réessayer."
+      render :new
+    end
+  end
+
+  # GET /resource/edit
+  # def edit
+  #   super
+  # end
+
+  # PUT /resource
+  # def update
+  #   super
+  # end
+
+  # DELETE /resource
+  # def destroy
+  #   super
+  # end
+
+  # GET /resource/cancel
+  # Forces the session data which is usually expired after sign
+  # in to be expired now. This is useful if the user wants to
+  # cancel oauth signing in/up in the middle of the process,
+  # removing all OAuth session data.
+  # def cancel
+  #   super
+  # end
+
+  protected
+
+  def verify_captcha
+    result = false
+
+    captcha_uuid = params["captcha_uuid"]
+    user_entered_captcha = params["user_captcha"]
+
+    reference_captcha = Rails.configuration.x.captchas.select{|c| c[:uuid] == captcha_uuid}.first
+
+    if reference_captcha[:text] == user_entered_captcha
+      result = true
+    end
+
+    result
+  end
+
+  def random_captcha
+    Rails.configuration.x.captchas.sample
+  end
+
+  # You can put the params you want to permit in the empty array.
+  # def configure_sign_up_params
+  #   devise_parameter_sanitizer.for(:sign_up) << :attribute
+  # end
+
+  # You can put the params you want to permit in the empty array.
+  # def configure_account_update_params
+  #   devise_parameter_sanitizer.for(:account_update) << :attribute
+  # end
+
+  # The path used after sign up.
+  # def after_sign_up_path_for(resource)
+  #   super(resource)
+  # end
+
+  # The path used after sign up for inactive accounts.
+  # def after_inactive_sign_up_path_for(resource)
+  #   super(resource)
+  # end
+end
