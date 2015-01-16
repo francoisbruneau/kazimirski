@@ -53,9 +53,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     captcha_uuid = params["captcha_uuid"]
     user_entered_captcha = params["user_captcha"]
 
-    reference_captcha = Rails.configuration.x.captchas.select{|c| c[:uuid] == captcha_uuid}.first
+    reference_captcha = Rails.configuration.x.captchas.select{|c| c['uuid'] == captcha_uuid}.first
 
-    if reference_captcha[:text] == user_entered_captcha
+    if reference_captcha['text'] == user_entered_captcha
       result = true
     end
 

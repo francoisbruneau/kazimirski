@@ -25,3 +25,8 @@
 
 # Ignore OS X files
 .DS_store
+
+# Ignore secrets
+config/secrets.yml
+config/captchas.yml
+public/captcha

@@ -24,9 +24,7 @@ module Kazimirski
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.x.captchas = [   {:text => "DANS L'IDIOME", :uuid => "9ad39f73-7b80-4013-809c-6945dbd23355"},
-                            {:text => "TOME PREMIER", :uuid => "ffa971d9-f127-408b-88c4-7c734b7ddfbd"},
-                            {:text => "TOUTES LES RACINES", :uuid => "71074c5e-e3ee-4b04-85ef-6a860f55828a"} ]
+    config.x.captchas = YAML.load_file("#{Rails.root}/config/captchas.yml")
 
   end
 end
