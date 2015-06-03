@@ -7,6 +7,7 @@
     - libpq-dev
     - libreadline-dev
     - libssl-dev
+    - libffi-dev
 
 - name: ruby | update rbenv repo
   git: accept_hostkey=true repo=git://github.com/sstephenson/rbenv.git dest={{ rbenv_root }} version=v0.4.0
@@ -15,31 +16,16 @@
 - name: ruby | add rbenv initialization to profile
   template: src=../templates/rbenv.sh.j2 dest=/etc/profile.d/rbenv.sh owner=root group=root mode=0755
 
-- name: ruby | check ruby-build installed
-  command: test -x /usr/local/bin/ruby-build
-  register: rbuild_present
-  ignore_errors: yes
+- name: ruby | create ruby-build folder
+  command: mkdir -p {{ ruby_build_root }}
   sudo: no
 
-- name: ruby | create temporary directory
-  command: mktemp -d
-  register: tempdir
-  when: rbuild_present|failed
-  sudo: no
-
-- name: ruby | clone ruby-build repo
-  git: accept_hostkey=true repo=git://github.com/sstephenson/ruby-build.git dest={{tempdir.stdout}}/ruby-build
-  when: rbuild_present|failed
+- name: ruby | update ruby-build repo
+  git: accept_hostkey=true repo=git://github.com/sstephenson/ruby-build.git dest={{ ruby_build_root }}
   sudo: no
 
 - name: ruby | install ruby-build
-  command: ./install.sh chdir={{tempdir.stdout}}/ruby-build
-  when: rbuild_present|failed
-
-- name: ruby | remove temporary directory
-  file: path={{tempdir.stdout}} state=absent
-  when: rbuild_present|failed
-  sudo: no
+  command: ./install.sh chdir={{ ruby_build_root }}
 
 - name: ruby | check ruby ruby_version installed
   shell: bash -lc "RBENV_ROOT={{rbenv_root}} rbenv versions | grep {{ruby_version}}"
