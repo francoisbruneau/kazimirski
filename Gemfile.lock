@@ -98,7 +98,6 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    newrelic_rpm (3.9.8.273)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
@@ -205,7 +204,6 @@ DEPENDENCIES
   devise-i18n
   jbuilder (~> 2.0)
   jquery-rails
-  newrelic_rpm
   pg
   rails (= 4.2.0)
   rails-i18n (~> 4.0.0)
@@ -219,4 +217,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.2
+   1.10.3
