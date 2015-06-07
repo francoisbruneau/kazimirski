@@ -2,7 +2,7 @@
 
 ## Clone code
 
-    git clone [TODO]
+    git clone git@github.com:francoisbruneau/kazimirski.git
 
 ## Install VirtualBox, Vagrant and Ansible
 * VirtualBox: https://www.virtualbox.org/wiki/Downloads
