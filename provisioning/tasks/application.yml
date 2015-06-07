@@ -12,3 +12,7 @@
 - name: application | rehash after installing all gems
   shell: bash -lc "RBENV_ROOT={{rbenv_root}} rbenv rehash"
   sudo: no
+
+- name: application | install mailcatcher (not in Gemfile)
+  shell: bash -lc "gem install mailcatcher"
+  sudo: no

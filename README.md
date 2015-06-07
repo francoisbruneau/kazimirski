@@ -29,6 +29,10 @@ Create a .env file in the project folder and add:
 
     rake db:seed
 
+### Run mailcatcher if you want to test emails locally
+
+    mailcatcher --http-ip=0.0.0.0
+
 ### Run server
 
     foreman start
