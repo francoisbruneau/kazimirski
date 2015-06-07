@@ -11,6 +11,22 @@
 - name: postgresql | ensure postgresql is installed
   apt: pkg=postgresql state=present
 
+- name: postgresql | Edit postgresql.conf to change listen address to '*'
+  command: sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" "{{pg_conf}}"
+  sudo: yes
+
+- name: postgresql | Append to pg_hba.conf to add password auth
+  lineinfile: dest={{pg_hba}} line="host    all             all             all                     md5"
+  sudo: yes
+
+- name: postgresql | Explicitly set default client_encoding
+  lineinfile: dest={{pg_conf}} line="client_encoding = utf8"
+  sudo: yes
+
+- name: postgresql | Restart so that all new config is loaded
+  command: service postgresql restart
+  sudo: yes
+
 - name: postgresql | ensure postgresql start at boot
   service: name=postgresql enabled=yes state=started
 
