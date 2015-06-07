@@ -24,6 +24,10 @@ Create a .env file in the project folder and add:
 ### ssh Vagrant box
 
     vagrant ssh
+    
+### Seed users
+
+    rake db:seed
 
 ### Run server
 

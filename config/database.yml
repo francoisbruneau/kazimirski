@@ -21,14 +21,14 @@ default: &default
 
 development:
   <<: *default
-  database: railsws_development
+  database: kazimirski_development
   host: localhost
   username: postgres
   password: postgres
 
 test:
   <<: *default
-  database: railsws_test
+  database: kazimirski_test
   host: localhost
   username: postgres
   password: postgres
