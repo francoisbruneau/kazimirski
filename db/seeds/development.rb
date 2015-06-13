@@ -1,2 +1,3 @@
-# Create admin user.
-User.create(:email => 'admin@kazimirski.lo', :password => 'password', :password_confirmation => 'password')
+User.create(:email => 'admin@kazimirski.lo', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('admin'), :confirmed_at => DateTime.now)
+User.create(:email => 'reviewer@kazimirski.lo', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('reviewer'), :confirmed_at => DateTime.now)
+User.create(:email => 'transcriber@kazimirski.lo', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('transcriber'), :confirmed_at => DateTime.now)
