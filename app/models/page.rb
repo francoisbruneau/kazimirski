@@ -5,6 +5,7 @@ class Page < ActiveRecord::Base
   belongs_to :reviewer, class_name: "User", foreign_key: "reviewer_id"
 
   scope :submitted, -> { where "submitted_at IS NOT NULL AND submitter_id IS NOT NULL"}
+  scope :pending_review, -> { where "submitted_at IS NOT NULL and reviewed_at IS NULL"}
   scope :reviewed, -> { where "reviewed_at IS NOT NULL and reviewer_id IS NOT NULL"}
 
   has_attached_file :scanned_image

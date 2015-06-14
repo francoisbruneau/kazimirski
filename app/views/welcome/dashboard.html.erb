@@ -4,7 +4,7 @@
 
   <h2>Bienvenue, <%= current_user.email %>!</h2>
 
-  <p>Tu as transcrit <%= current_user.submitted_pages.count %> pages, dont <%= current_user.integrated_pages.count %> ont été validées.</p>
+  <p>Tu as transcrit <%= current_user.submitted_pages.count %> pages, dont <%= current_user.integrated_pages.count %> ont été validées et <%= current_user.submitted_pages.pending_review.count %> sont en attente de validation.</p>
 
   <% if current_user.has_draft_page? %>
       <p>Tu as commencé la transcription d'une page. Veux-tu <a href="#">reprendre maintenant ?</a></p>
