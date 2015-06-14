@@ -25,9 +25,9 @@ Create a .env file in the project folder and add:
 
     vagrant ssh
     
-### Seed users
+### Create tables and seed them with sample data
 
-    rake db:seed
+    rake db:setup
 
 ### Run mailcatcher if you want to test emails locally
 
