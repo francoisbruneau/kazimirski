@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network "forwarded_port", guest: 5000, host: 5000
 
   # Postgres
-  config.vm.network "forwarded_port", guest: 5432, host: 15432
+  config.vm.network "forwarded_port", guest: 5432, host: 5432
 
   # Mailcatcher
   config.vm.network "forwarded_port", guest: 1080, host: 1080
