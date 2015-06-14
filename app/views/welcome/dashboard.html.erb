@@ -1,7 +1,25 @@
 <div class="container">
 
-    <h1>Dashboard</h1>
+  <h1>Dashboard</h1>
 
-    <h2>Welcome, <%= current_user.email %>!</h2>
+  <h2>Bienvenue, <%= current_user.email %>!</h2>
+
+  <p>Tu as transcrit <%= current_user.submitted_pages.count %> pages, dont <%= current_user.integrated_pages.count %> ont été validées.</p>
+
+  <% if current_user.has_draft_page? %>
+      <p>Tu as commencé la transcription d'une page. Veux-tu <a href="#">reprendre maintenant ?</a></p>
+  <% else %>
+      <p><a href="#">Transcrire une nouvelle page</a></p>
+  <% end %>
+
+  <h2>Avancement du projet</h2>
+
+  <p><%= number_to_human(Page.percent_validated) %>% de pages validées</p>
+  <p><%= Page.submitted.count %> pages transcrites</p>
+  <p><%= Page.reviewed.count %> pages validées</p>
+
+  <h2>Gestion de mon compte</h2>
+
+  <p><%= link_to "Modifier mon mot de passe", edit_user_registration_path %></p>
 
 </div>

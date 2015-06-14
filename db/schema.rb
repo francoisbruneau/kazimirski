@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613152503) do
+ActiveRecord::Schema.define(version: 20150614132507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pages", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "book_nr",                    null: false
+    t.integer  "source_page_nr",             null: false
+    t.integer  "submitter_id"
+    t.integer  "reviewer_id"
+    t.datetime "submitted_at"
+    t.datetime "reviewed_at"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "scanned_image_file_name"
+    t.string   "scanned_image_content_type"
+    t.integer  "scanned_image_file_size"
+    t.datetime "scanned_image_updated_at"
+  end
+
+  add_index "pages", ["reviewed_at"], name: "index_pages_on_reviewed_at", using: :btree
+  add_index "pages", ["submitted_at"], name: "index_pages_on_submitted_at", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
