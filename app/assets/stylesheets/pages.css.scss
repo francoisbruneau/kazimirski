@@ -1,0 +1,43 @@
+// http://stackoverflow.com/questions/19089384/twitter-bootstrap-3-two-columns-full-height
+
+html, body, .container {
+  height: 100%;
+}
+
+textarea.form-control.form-control {
+  height: 100%;
+}
+
+.container
+{
+  display:table;
+  width: 100%;
+  margin-top: -50px;
+  padding-top: 50px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.row
+{
+  height: 100%;
+  display: table-row;
+}
+.col-md-6.no-float {
+  float: none; /* thanks baxabbit */
+}
+.col-md-6
+{
+  display: table-cell;
+  width: 50%;
+  padding: 0;
+}
+
+.scanned-image {
+  overflow: scroll;
+  height: 100%;
+}
+
+.img-responsive {
+  max-width: 200%;
+}

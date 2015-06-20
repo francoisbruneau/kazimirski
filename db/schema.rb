@@ -20,8 +20,9 @@ ActiveRecord::Schema.define(version: 20150614132507) do
     t.text     "content"
     t.integer  "book_nr",                    null: false
     t.integer  "source_page_nr",             null: false
-    t.integer  "submitter_id"
+    t.integer  "transcriber_id"
     t.integer  "reviewer_id"
+    t.datetime "checked_out_at"
     t.datetime "submitted_at"
     t.datetime "reviewed_at"
     t.datetime "created_at",                 null: false
@@ -32,8 +33,11 @@ ActiveRecord::Schema.define(version: 20150614132507) do
     t.datetime "scanned_image_updated_at"
   end
 
+  add_index "pages", ["checked_out_at"], name: "index_pages_on_checked_out_at", using: :btree
   add_index "pages", ["reviewed_at"], name: "index_pages_on_reviewed_at", using: :btree
+  add_index "pages", ["reviewer_id"], name: "index_pages_on_reviewer_id", using: :btree
   add_index "pages", ["submitted_at"], name: "index_pages_on_submitted_at", using: :btree
+  add_index "pages", ["transcriber_id"], name: "index_pages_on_transcriber_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"

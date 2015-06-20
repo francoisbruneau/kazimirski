@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 no-float">
+      <div class="scanned-image">
+        <%= image_tag @page.scanned_image.url, class: 'img-responsive' %>
+      </div>
+    </div>
+    <div class="col-md-6 no-float">
+      <textarea class="form-control input-lg"></textarea>
+    </div>
+  </div>
+</div>
+
+<%= @page.inspect %>

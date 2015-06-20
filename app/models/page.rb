@@ -1,11 +1,13 @@
 # TODO create rake task which generates all Pages from source PDFs (via archive.org)
 
 class Page < ActiveRecord::Base
-  belongs_to :submitter, class_name: "User", foreign_key: "submitter_id"
+  belongs_to :transcriber, class_name: "User", foreign_key: "transcriber_id"
   belongs_to :reviewer, class_name: "User", foreign_key: "reviewer_id"
 
-  scope :submitted, -> { where "submitted_at IS NOT NULL AND submitter_id IS NOT NULL"}
-  scope :pending_review, -> { where "submitted_at IS NOT NULL and reviewed_at IS NULL"}
+  # Page lifecycle
+  scope :not_checked_out, -> { where "checked_out_at IS NULL and transcriber_id IS NULL" }
+  scope :submitted, -> { where "submitted_at IS NOT NULL AND transcriber_id IS NOT NULL"}
+  scope :pending_review, -> { where "submitted_at IS NOT NULL AND transcriber_id IS NOT NULL and reviewed_at IS NULL"}
   scope :reviewed, -> { where "reviewed_at IS NOT NULL and reviewer_id IS NOT NULL"}
 
   has_attached_file :scanned_image
@@ -16,7 +18,7 @@ class Page < ActiveRecord::Base
 
   # TODO: Check content is non empty when submitting
 
-  # TODO: Validate reviewer_id differs from submitter_id
+  # TODO: Validate reviewer_id differs from transcriber_id
 
   def self.percent_validated
     self.reviewed.count*1.0 / self.count * 100.0
