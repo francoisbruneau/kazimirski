@@ -1,12 +1,14 @@
 // http://stackoverflow.com/questions/19089384/twitter-bootstrap-3-two-columns-full-height
-// http://www.minimit.com/articles/solutions-tutorials/bootstrap-3-responsive-columns-of-same-height
-
 html, body, form {
   height: 100%;
 }
 
+input[type="submit"] {
+  text-shadow: none;
+}
+
 .row.editor {
-  height: 90%;
+  height: 85%;
 }
 
 textarea.form-control.form-control {
@@ -22,6 +24,16 @@ textarea.form-control.form-control {
   max-width: 200%;
 }
 
+.col-scan {
+  padding-right: 0;
+}
+
+.col-input {
+  padding-left: 0;
+}
+
+
+// http://www.minimit.com/articles/solutions-tutorials/bootstrap-3-responsive-columns-of-same-height
 /* columns of same height styles */
 
 .row-full-height {
