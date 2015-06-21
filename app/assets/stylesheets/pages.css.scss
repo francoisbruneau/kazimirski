@@ -1,43 +1,74 @@
 // http://stackoverflow.com/questions/19089384/twitter-bootstrap-3-two-columns-full-height
+// http://www.minimit.com/articles/solutions-tutorials/bootstrap-3-responsive-columns-of-same-height
 
-html, body, .container {
+html, body, form {
   height: 100%;
+}
+
+.row.editor {
+  height: 90%;
 }
 
 textarea.form-control.form-control {
   height: 100%;
 }
 
-.container
-{
-  display:table;
-  width: 100%;
-  margin-top: -50px;
-  padding-top: 50px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.row
-{
-  height: 100%;
-  display: table-row;
-}
-.col-md-6.no-float {
-  float: none; /* thanks baxabbit */
-}
-.col-md-6
-{
-  display: table-cell;
-  width: 50%;
-  padding: 0;
-}
-
 .scanned-image {
-  overflow: scroll;
   height: 100%;
+  overflow: scroll;
 }
 
 .img-responsive {
   max-width: 200%;
+}
+
+/* columns of same height styles */
+
+.row-full-height {
+  height: 100%;
+}
+.col-full-height {
+  height: 100%;
+  vertical-align: middle;
+}
+.row-same-height {
+  display: table;
+  width: 100%;
+  /* fix overflow */
+  table-layout: fixed;
+}
+.col-xs-height {
+  display: table-cell;
+  float: none !important;
+}
+
+@media (min-width: 768px) {
+  .col-sm-height {
+    display: table-cell;
+    float: none !important;
+  }
+}
+@media (min-width: 992px) {
+  .col-md-height {
+    display: table-cell;
+    float: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .col-lg-height {
+    display: table-cell;
+    float: none !important;
+  }
+}
+
+/* vertical alignment styles */
+
+.col-top {
+  vertical-align: top;
+}
+.col-middle {
+  vertical-align: middle;
+}
+.col-bottom {
+  vertical-align: bottom;
 }

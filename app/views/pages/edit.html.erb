@@ -1,14 +1,22 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 no-float">
-      <div class="scanned-image">
-        <%= image_tag @page.scanned_image.url, class: 'img-responsive' %>
+<%= simple_form_for @page do |f| %>
+
+      <div class="row editor">
+        <div class="row-same-height row-full-height">
+            <div class="col-xs-6 col-xs-height col-full-height">
+              <div class="scanned-image">
+                <%= image_tag @page.scanned_image.url, class: 'img-responsive' %>
+              </div>
+            </div>
+            <div class="col-xs-6 col-xs-height col-full-height">
+              <%= f.input :content, class: 'form-control input-lg', wrapper: false, label: false %>
+            </div>
+        </div>
+      </div>
+
+    <div class="container">
+      <div class="row editor-toolbar">
+        <%= f.button :submit %>
       </div>
     </div>
-    <div class="col-md-6 no-float">
-      <textarea class="form-control input-lg"></textarea>
-    </div>
-  </div>
-</div>
 
-<%= @page.inspect %>
+<% end %>
