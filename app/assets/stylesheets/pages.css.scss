@@ -5,10 +5,14 @@ html, body, form {
 
 input[type="submit"] {
   text-shadow: none;
+  margin-right: 15px;
+  margin-top: 10px;
 }
 
 .row.editor {
   height: 85%;
+  margin-left:0;
+  margin-right:0;
 }
 
 textarea.form-control.form-control {
