@@ -19,13 +19,15 @@ textarea.form-control.form-control {
   height: 100%;
 }
 
-.scanned-image {
+.scanned-image-container {
   height: 100%;
   overflow: scroll;
 }
 
-.img-responsive {
-  max-width: 200%;
+.scanned-image {
+  background-size: 97% auto;
+  width: 200%;
+  height: 380%;
 }
 
 .col-scan {
