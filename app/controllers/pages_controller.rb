@@ -17,6 +17,7 @@ class PagesController < ApplicationController
   end
 
   def update
+    # TODO: Handle case of review
     @page = Page.find(params[:id])
     @page.content = params[:page][:content]
     @page.submitted_at = Time.now
