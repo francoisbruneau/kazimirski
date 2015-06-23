@@ -19,8 +19,7 @@ class PagesController < ApplicationController
   def update
     @page = Page.find(params[:id])
     @page.content = params[:page][:content]
-    # TODO: Set submitted_at
-    # TODO: Move to model
+    @page.submitted_at = Time.now
     @page.save
     flash[:notice] = "Merci!"
     redirect_to root_path
