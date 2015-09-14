@@ -28,7 +28,6 @@
 
 # Ignore secrets
 config/secrets.yml
-config/captchas.yml
 public/captcha
 
 # Ignore Paperclip-generated files

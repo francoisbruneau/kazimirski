@@ -1,0 +1,7 @@
+  - uuid: 9ad39f73-7b80-4013-809c-6945dbd23355
+    text: <%= ENV['captcha-9ad39f73-7b80-4013-809c-6945dbd23355'] %>
+  - uuid: ffa971d9-f127-408b-88c4-7c734b7ddfbd
+    text: <%= ENV['captcha-ffa971d9-f127-408b-88c4-7c734b7ddfbd'] %>
+  - uuid: 71074c5e-e3ee-4b04-85ef-6a860f55828a
+    text: <%= ENV['captcha-71074c5e-e3ee-4b04-85ef-6a860f55828a'] %>
+
