@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :pages do
     collection do
       patch 'checkout'
+      patch 'start_review'
     end
   end
 

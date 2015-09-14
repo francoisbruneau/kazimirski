@@ -12,6 +12,15 @@
       <p><%= link_to "Transcrire une nouvelle page", checkout_pages_path, :method => :patch %></p>
   <% end %>
 
+  <% if current_user.is_reviewer? %>
+    <% if current_user.has_started_a_review? %>
+        <p>Tu as commencé la relecture d'une page. Veux-tu <%= link_to "reprendre maintenant ?", edit_page_path(current_user.started_review_page) %></p>
+    <% elsif Page.pending_review.count > 0 %>
+        <p><%= Page.pending_review.count %> pages sont en attente de validation.</p>
+        <p><%= link_to "Relire une page", start_review_pages_path, :method => :patch %></p>
+    <% end %>
+  <% end %>
+
   <h2>Avancement du projet</h2>
 
   <p><%= number_to_human(Page.percent_validated) %>% de pages validées</p>

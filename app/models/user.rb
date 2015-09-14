@@ -28,9 +28,22 @@ class User < ActiveRecord::Base
     Page.where(:transcriber_id => self.id, :submitted_at => nil).first
   end
 
+  def has_started_a_review?
+    started_review_page.present?
+  end
+
+  def started_review_page
+    Page.where(:reviewer_id => self.id, :reviewed_at => nil).first
+  end
+
   def checkout(page)
     page.checked_out_at = Time.now
     page.transcriber_id = self.id
+    page.save
+  end
+
+  def start_review(page)
+    page.reviewer_id = self.id
     page.save
   end
 
