@@ -27,7 +27,6 @@
 .DS_store
 
 # Ignore secrets
-config/secrets.yml
 public/captcha
 
 # Ignore Paperclip-generated files
