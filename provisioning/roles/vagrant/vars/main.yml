@@ -13,5 +13,5 @@ pg_dir: /var/lib/postgresql/{{pg_version}}/main
 project_root: /vagrant
 
 rbenv_root: /home/vagrant/.rbenv
-ruby_version: 2.2.2
+ruby_version: 2.2.3
 ruby_build_root: /home/vagrant/.rbenv/plugins/ruby-build
