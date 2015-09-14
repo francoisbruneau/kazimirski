@@ -23,13 +23,12 @@ class PagesController < ApplicationController
   end
 
   def update
-    # TODO: Handle case where reviewer do also transcription
     @page = Page.find(params[:id])
     @page.content = params[:page][:content]
 
-    if current_user.is_reviewer?
+    if @page.reviewer_id == current_user.id
       @page.reviewed_at = Time.now
-    else
+    elsif @page.transcriber_id == current_user.id
       @page.submitted_at = Time.now
     end
 
