@@ -10,7 +10,8 @@ class Page < ActiveRecord::Base
   scope :pending_review, -> { where "submitted_at IS NOT NULL AND transcriber_id IS NOT NULL and reviewed_at IS NULL"}
   scope :reviewed, -> { where "reviewed_at IS NOT NULL and reviewer_id IS NOT NULL"}
 
-  has_attached_file :scanned_image
+  has_attached_file :scanned_image,
+                    :url => "/scans/:basename.:extension"
   validates_attachment_content_type :scanned_image, :content_type => /\Aimage\/.*\Z/
   validates :scanned_image, :attachment_presence => true
 
