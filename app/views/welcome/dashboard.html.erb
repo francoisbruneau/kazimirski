@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h1>Dashboard</h1>
+  <h1>Tableau de bord</h1>
 
   <h2>Bienvenue, <%= current_user.email %>!</h2>
 
@@ -23,12 +23,12 @@
 
   <h2>Avancement du projet</h2>
 
-  <p><%= number_to_human(Page.percent_validated) %>% de pages validées</p>
+  <p><%= number_to_human(Page.percent_validated) %>% de pages validées (<%= Page.reviewed.count %>/<%= Page.count %>)</p>
   <p><%= Page.submitted.count %> pages transcrites</p>
   <p><%= Page.reviewed.count %> pages validées</p>
 
   <h2>Gestion de mon compte</h2>
 
-  <p><%= link_to "Modifier mon mot de passe", edit_user_registration_path %></p>
+  <p><%= link_to "Editer mon compte", edit_user_registration_path %></p>
 
 </div>
