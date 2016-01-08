@@ -14,12 +14,18 @@ User.create(:email => 'admin@kazimirski.fr', :password => 'password', :password_
 User.create(:email => 'reviewer@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('reviewer'), :confirmed_at => DateTime.now)
 User.create(:email => 'transcriber@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('transcriber'), :confirmed_at => DateTime.now)
 
-# Create sample pages from sample scans
-Dir.glob(Rails.root.join('public', 'scans', '*')).each do |filepath|
+# Tome Premier
+(1..1392).each do |source_page_nr|
   p = Page.new
-  p.scanned_image = File.open(filepath)
-  captures = filepath.match(/t(\d+)p(\d+).png/).captures
-  p.book_nr = captures.first.to_i
-  p.source_page_nr = captures.second.to_i
+  p.source_page_nr = source_page_nr
+  p.book_nr = 1
+  p.save
+end
+
+# Tome Second
+(1..1638).each do |source_page_nr|
+  p = Page.new
+  p.source_page_nr = source_page_nr
+  p.book_nr = 2
   p.save
 end

@@ -27,10 +27,6 @@ ActiveRecord::Schema.define(version: 20150614132507) do
     t.datetime "reviewed_at"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.string   "scanned_image_file_name"
-    t.string   "scanned_image_content_type"
-    t.integer  "scanned_image_file_size"
-    t.datetime "scanned_image_updated_at"
   end
 
   add_index "pages", ["checked_out_at"], name: "index_pages_on_checked_out_at", using: :btree

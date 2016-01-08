@@ -10,11 +10,6 @@ class Page < ActiveRecord::Base
   scope :pending_review, -> { where "submitted_at IS NOT NULL AND transcriber_id IS NOT NULL and reviewed_at IS NULL"}
   scope :reviewed, -> { where "reviewed_at IS NOT NULL and reviewer_id IS NOT NULL"}
 
-  has_attached_file :scanned_image,
-                    :url => "/scans/:basename.:extension"
-  validates_attachment_content_type :scanned_image, :content_type => /\Aimage\/.*\Z/
-  validates :scanned_image, :attachment_presence => true
-
   validates :book_nr, :source_page_nr, numericality: true, presence: true
 
   # TODO: Check content is non empty when submitting
@@ -26,7 +21,7 @@ class Page < ActiveRecord::Base
   end
 
   def viewer_url
-    "https://archive.org/stream/dictionnairearab01bibeuoft#page/#{self.id}/mode/1up"
+    "https://archive.org/stream/dictionnairearab0#{self.book_nr}bibeuoft#page/#{self.source_page_nr}/mode/1up"
   end
 
 end
