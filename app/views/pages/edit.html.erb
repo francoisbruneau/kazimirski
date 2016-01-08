@@ -14,7 +14,8 @@
       </div>
 
       <div class="pull-right bottom-bar">
-        <%= f.button :submit, "Envoyer cette page", class: 'btn-info'  %>
+        <% submit_label = @page.reviewer == current_user ? 'Valider cette page comme correcte' : 'Envoyer cette page pour relecture' %>
+        <%= f.button :submit, submit_label, class: 'btn-info'  %>
       </div>
 
 <% end %>

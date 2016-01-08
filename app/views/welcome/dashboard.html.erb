@@ -9,7 +9,7 @@
   <% if current_user.has_draft_page? %>
       <p>Tu as commencé la transcription d'une page. Veux-tu <%= link_to "reprendre maintenant ?", edit_page_path(current_user.draft_page) %></p>
   <% elsif Page.not_checked_out.count > 0 %>
-      <p><%= link_to "Transcrire une nouvelle page", checkout_pages_path, :method => :patch %></p>
+      <p><%= link_to "Transcrire une nouvelle page", checkout_pages_path, :method => :patch, :class => 'btn btn-info', :role => 'button' %></p>
   <% end %>
 
   <% if current_user.is_reviewer? %>
@@ -17,7 +17,7 @@
         <p>Tu as commencé la relecture d'une page. Veux-tu <%= link_to "reprendre maintenant ?", edit_page_path(current_user.started_review_page) %></p>
     <% elsif Page.pending_review.count > 0 %>
         <p><%= Page.pending_review.count %> pages sont en attente de validation.</p>
-        <p><%= link_to "Relire une page", start_review_pages_path, :method => :patch %></p>
+        <p><%= link_to "Relire une page", start_review_pages_path, :method => :patch, :class => 'btn btn-info', :role => 'button' %></p>
     <% end %>
   <% end %>
 
