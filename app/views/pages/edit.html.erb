@@ -4,7 +4,7 @@
         <div class="row-same-height row-full-height">
             <div class="col-xs-6 col-xs-height col-full-height col-scan">
               <div class="scanned-image-container">
-                <div class="scanned-image" style="background-image: url('<%= @page.scanned_image.url %>')"></div>
+                <iframe class="scanned-image" src="<%= @page.viewer_url %>"></iframe>
               </div>
             </div>
             <div class="col-xs-6 col-xs-height col-full-height col-input">

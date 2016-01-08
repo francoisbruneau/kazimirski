@@ -25,4 +25,8 @@ class Page < ActiveRecord::Base
     self.reviewed.count*1.0 / self.count * 100.0
   end
 
+  def viewer_url
+    "https://archive.org/stream/dictionnairearab01bibeuoft#page/#{self.id}/mode/1up"
+  end
+
 end
