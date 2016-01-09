@@ -20,6 +20,22 @@ class Page < ActiveRecord::Base
     self.reviewed.count*1.0 / self.count * 100.0
   end
 
+  def in_review?
+    self.reviewer_id.present? && self.reviewed_at.nil?
+  end
+
+  def in_transcription?
+    self.transcriber_id.present? && self.submitted_at.nil?
+  end
+
+  def in_review_by?(user)
+    self.in_review? && self.reviewer_id == user.id
+  end
+
+  def in_transcription_by?(user)
+    self.in_transcription? && self.transcriber_id == user.id
+  end
+
   def viewer_url
     "https://archive.org/stream/dictionnairearab0#{self.book_nr}bibeuoft#page/#{self.source_page_nr}/mode/1up"
   end
