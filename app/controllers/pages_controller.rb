@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   end
 
   def start_review
-    @page = Page.pending_review.first
+    @page = Page.pending_review.not_transcribed_by(current_user.id).first
     current_user.start_review(@page)
     redirect_to edit_page_path(@page)
   end

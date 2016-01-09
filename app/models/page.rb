@@ -9,6 +9,7 @@ class Page < ActiveRecord::Base
   scope :submitted, -> { where "submitted_at IS NOT NULL AND transcriber_id IS NOT NULL"}
   scope :pending_review, -> { where "submitted_at IS NOT NULL AND transcriber_id IS NOT NULL and reviewed_at IS NULL"}
   scope :reviewed, -> { where "reviewed_at IS NOT NULL and reviewer_id IS NOT NULL"}
+  scope :not_transcribed_by, ->(user_id) { where("transcriber_id != ?", user_id) }
 
   validates :book_nr, :source_page_nr, numericality: true, presence: true
 
