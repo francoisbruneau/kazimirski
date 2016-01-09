@@ -12,7 +12,7 @@ class Page < ActiveRecord::Base
 
   validates :book_nr, :source_page_nr, numericality: true, presence: true
 
-  # TODO: Check content is non empty when submitting
+  has_paper_trail
 
   # TODO: Validate reviewer_id differs from transcriber_id
 

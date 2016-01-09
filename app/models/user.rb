@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :integrated_pages, -> { where "reviewed_at IS NOT NULL" }, class_name: "Page", foreign_key: "transcriber_id" # submitted by me and reviewed by someone else
   has_many :reviewed_pages, -> { where "reviewed_at IS NOT NULL" }, class_name: "Page", foreign_key: "reviewer_id" # reviewed by me
 
+  has_paper_trail
+
   def is_reviewer?
     self.role.name == 'reviewer'
   end
