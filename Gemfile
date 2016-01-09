@@ -17,7 +17,8 @@ gem 'devise'
 gem 'rails-i18n', '~> 4.0.0'
 
 gem 'paper_trail', '~> 4.0', '>= 4.0.1'
-# gem 'rails_admin', '~> 0.8.1'
+gem 'rails_admin', '~> 0.8.1'
+gem 'rails_admin_history_rollback', '~> 0.0.6'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
