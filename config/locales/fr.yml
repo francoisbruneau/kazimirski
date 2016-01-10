@@ -1,0 +1,8 @@
+fr:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_weak: "est trop simple (doit contenir au moins une majuscule, une minuscule, et un chiffre)"

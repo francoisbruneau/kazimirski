@@ -13,6 +13,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 
 gem 'simple_form'
 gem 'devise', '~> 3.5', '>= 3.5.3'
+gem 'password_strength', '~> 1.1', '>= 1.1.1'
 gem 'rails-i18n', '~> 4.0.0'
 
 gem 'paper_trail', '~> 4.0', '>= 4.0.1'

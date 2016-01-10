@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+  validates_strength_of :password, :with => :email, :level => :good
+
   belongs_to :role
   before_create :set_default_role
 

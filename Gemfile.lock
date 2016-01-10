@@ -122,6 +122,8 @@ GEM
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
       request_store (~> 1.1)
+    password_strength (1.1.1)
+      activemodel
     pg (0.17.1)
     rack (1.6.4)
     rack-pjax (0.8.0)
@@ -249,6 +251,7 @@ DEPENDENCIES
   dotenv-rails
   jquery-rails
   paper_trail (~> 4.0, >= 4.0.1)
+  password_strength (~> 1.1, >= 1.1.1)
   pg
   rails (~> 4.2, >= 4.2.5)
   rails-i18n (~> 4.0.0)
