@@ -26,8 +26,3 @@
 # Ignore OS X files
 .DS_store
 
-# Ignore secrets
-public/captcha
-
-# Ignore Paperclip-generated files
-public/system
