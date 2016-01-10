@@ -1,7 +1,4 @@
-  - uuid: 9ad39f73-7b80-4013-809c-6945dbd23355
-    text: <%= ENV['CAPTCHA_9ad39f737b804013809c6945dbd23355'] %>
-  - uuid: ffa971d9-f127-408b-88c4-7c734b7ddfbd
-    text: <%= ENV['CAPTCHA_ffa971d9f127408b88c47c734b7ddfbd'] %>
-  - uuid: 71074c5e-e3ee-4b04-85ef-6a860f55828a
-    text: <%= ENV['CAPTCHA_71074c5ee3ee4b0485ef6a860f55828a'] %>
+  - uuid: 9ad39f737b804013809c6945dbd23355
+  - uuid: ffa971d9f127408b88c47c734b7ddfbd
+  - uuid: 71074c5ee3ee4b0485ef6a860f55828a
 
