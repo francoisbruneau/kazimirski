@@ -10,9 +10,14 @@
   Role.find_or_create_by({name: role})
 end
 
-User.create(:email => 'admin@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('admin'), :confirmed_at => DateTime.now)
-User.create(:email => 'reviewer@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('reviewer'), :confirmed_at => DateTime.now)
-User.create(:email => 'transcriber@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('transcriber'), :confirmed_at => DateTime.now)
+admin = User.new(:email => 'admin@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('admin'), :confirmed_at => DateTime.now)
+admin.save(validate: false)
+
+reviewer = User.new(:email => 'reviewer@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('reviewer'), :confirmed_at => DateTime.now)
+reviewer.save(validate: false)
+
+transcriber = User.new(:email => 'transcriber@kazimirski.fr', :password => 'password', :password_confirmation => 'password', :role => Role.find_by_name('transcriber'), :confirmed_at => DateTime.now)
+transcriber.save(validate: false)
 
 # Tome Premier
 (1..1392).each do |source_page_nr|
