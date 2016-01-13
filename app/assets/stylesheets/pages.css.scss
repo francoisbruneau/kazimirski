@@ -15,8 +15,12 @@ input[type="submit"] {
   margin-right:0;
 }
 
-textarea.form-control.form-control {
-  height: 100%;
+.panel {
+  margin-bottom: 0px;
+}
+
+.note-resizebar {
+  display: none;
 }
 
 .scanned-image-container {

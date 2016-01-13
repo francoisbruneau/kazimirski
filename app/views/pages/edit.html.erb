@@ -1,3 +1,43 @@
+<% content_for :custom_js do %>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#wysiwyg').summernote(
+                    {
+                        lang: 'fr-FR',
+                        // http://summernote.org/deep-dive/
+                        toolbar: [
+                                ['style', ['italic']]
+                        ],
+                        callbacks: {
+                            // Hack to set 100% height
+                            // https://github.com/summernote/summernote/issues/451
+
+                            onInit: function() {
+                                //return;
+                                var ne = $('div.note-editable');
+                                var ned = $('div.note-editor');
+                                var nea = $('div.note-editing-area');
+                                ned.css('position', 'absolute');
+                                ned.css('top', 0);
+                                ned.css('right', 0);
+                                ned.css('bottom', 0);
+                                ned.css('left', 0);
+                                ne.css('position', 'absolute');
+                                ne.css('top', 40);
+                                ne.css('right', 0);
+                                ne.css('bottom', 0);
+                                ne.css('left', 0);
+
+                                nea.css('position', 'static');
+                            }
+                        }
+
+                    }
+            );
+        });
+    </script>
+<% end %>
+
 <%= simple_form_for @page do |f| %>
 
       <div class="row editor">
@@ -8,7 +48,7 @@
               </div>
             </div>
             <div class="col-xs-6 col-xs-height col-full-height col-input">
-              <%= f.input :content, input_html: { class: 'input-lg' }, wrapper: false, label: false %>
+              <%= f.input :content, input_html: { class: 'input-lg', id: 'wysiwyg' }, wrapper: false, label: false %>
             </div>
         </div>
       </div>

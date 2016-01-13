@@ -10,6 +10,8 @@ gem 'jquery-rails'
 
 gem 'sass-rails', '~> 4.0'
 gem 'bootstrap-sass', '~> 3.3.1'
+gem 'summernote-rails', '~> 0.7.1.0'
+gem 'font-awesome-rails', '~> 4.5'
 
 gem 'simple_form'
 gem 'devise', '~> 3.5', '>= 3.5.3'

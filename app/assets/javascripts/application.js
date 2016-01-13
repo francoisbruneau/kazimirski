@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
+//= require summernote
+//= require summernote/locales/fr-FR
 //= require_tree .
