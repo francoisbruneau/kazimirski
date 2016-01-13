@@ -1,7 +1,5 @@
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-
-  <h2>Inscription</h2>
+<div class="container">
+  <h2>Inscription.</h2>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= f.error_notification %>
@@ -31,7 +29,4 @@
   <% end %>
 
   <%= render "devise/shared/links" %>
-
-  </div>
-
 </div>
