@@ -4,19 +4,19 @@
 
   <h2>Bienvenue, <%= current_user.email %>!</h2>
 
-  <p>Tu as transcrit <%= current_user.submitted_pages.count %> pages, dont <%= current_user.integrated_pages.count %> ont été validées et <%= current_user.submitted_pages.pending_review.count %> sont en attente de validation.</p>
+  <p>Vous avez transcrit <%= current_user.submitted_pages.count %> pages, dont <%= current_user.integrated_pages.count %> ont été validées et <%= current_user.submitted_pages.pending_review.count %> sont en attente de validation.</p>
 
   <% if current_user.has_draft_page? %>
-      <p>Tu as commencé la transcription d'une page. Veux-tu <%= link_to "reprendre maintenant ?", edit_page_path(current_user.draft_page) %></p>
+      <p>Vous avez commencé la transcription d'une page. Voulez-vous <%= link_to "reprendre maintenant ?", edit_page_path(current_user.draft_page) %></p>
   <% elsif Page.not_checked_out.count > 0 %>
       <p><%= link_to "Transcrire une nouvelle page", checkout_pages_path, :method => :patch, :class => 'btn btn-info', :role => 'button' %></p>
   <% end %>
 
   <% if current_user.is_reviewer? %>
     <% if current_user.has_started_a_review? %>
-        <p>Tu as commencé la relecture d'une page. Veux-tu <%= link_to "reprendre maintenant ?", edit_page_path(current_user.started_review_page) %></p>
+        <p>Vous avez commencé la relecture d'une page. Voulez-vous <%= link_to "reprendre maintenant ?", edit_page_path(current_user.started_review_page) %></p>
     <% elsif Page.pending_review.not_transcribed_by(current_user.id).count > 0 %>
-        <p><%= Page.pending_review.not_transcribed_by(current_user.id).count %> pages sont en attente de validation.</p>
+        <p><%= Page.pending_review.not_transcribed_by(current_user.id).count %> pages sont en attente de relecture.</p>
         <p><%= link_to "Relire une page", start_review_pages_path, :method => :patch, :class => 'btn btn-info', :role => 'button' %></p>
     <% end %>
   <% end %>
@@ -27,7 +27,7 @@
   <p><%= Page.submitted.count %> pages transcrites</p>
   <p><%= Page.reviewed.count %> pages validées</p>
 
-  <h2>Gestion de mon compte</h2>
+  <h2>Gestion de votre compte</h2>
 
   <p><%= link_to "Editer mon compte", edit_user_registration_path %></p>
 

@@ -40,7 +40,7 @@ class PagesController < ApplicationController
         flash[:notice] = "Merci! La page a été envoyée pour relecture."
       end
     else
-      flash[:notice] = "Ton brouillon a été enregistré."
+      flash[:notice] = "Votre brouillon a été enregistré."
     end
 
     @page.save
