@@ -1,3 +1,7 @@
+<% content_for :contextual_menu_items do %>
+    <li><a href="#" data-toggle="modal" data-target="#instructions-modal">Instructions pour la transcription</a></li>
+<% end %>
+
 <% content_for :custom_js do %>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -58,5 +62,22 @@
         <%= f.button :submit, 'Enregistrer les changements', class: 'btn-default', name: 'save_as_draft'  %>
         <%= f.button :submit, submit_label, class: 'btn-info', name: 'commit'  %>
       </div>
+
+    <div class="modal fade" id="instructions-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Instructions pour la transcription</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <% end %>

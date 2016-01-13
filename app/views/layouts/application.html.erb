@@ -20,7 +20,7 @@
 
         <ul class="nav navbar-right navbar-nav">
         <% if current_user.present? %>
-          <!-- <li><a href="#">Instructions pour la transcription</a></li> -->
+          <%= yield :contextual_menu_items %>
           <li><%= mail_to "contact@kazimirski.fr", "Contact" %></li>
           <li><%= link_to 'Déconnexion', destroy_user_session_path, method: :delete %></li>
         <% else %>
