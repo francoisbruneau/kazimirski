@@ -4,7 +4,12 @@
 
 <% content_for :custom_js do %>
     <script type="text/javascript">
-        $(document).ready(function() {
+        jQuery(document).ready(function() {
+            if(!Cookies.get('transcriptionInstructionsDismissed')) {
+                Cookies.set('transcriptionInstructionsDismissed', true);
+                jQuery('#instructions-modal').modal();
+            }
+
             $('#wysiwyg').summernote(
                     {
                         lang: 'fr-FR',
