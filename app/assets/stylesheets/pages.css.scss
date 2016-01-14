@@ -3,6 +3,12 @@ html, body, form {
   height: 100%;
 }
 
+.transcription-form {
+  padding-bottom: 0px;
+  position: fixed;
+  top: 70px;
+}
+
 input[type="submit"] {
   text-shadow: none;
   margin-right: 15px;
@@ -17,6 +23,7 @@ input[type="submit"] {
 
 .panel {
   margin-bottom: 0px;
+  margin-right: 45px;
 }
 
 .note-resizebar {

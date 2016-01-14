@@ -16,17 +16,24 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="/">Projet Kazimirski</a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menuNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
         </div>
 
-        <ul class="nav navbar-right navbar-nav">
-        <% if current_user.present? %>
-          <%= yield :contextual_menu_items %>
-          <li><%= mail_to "contact@kazimirski.fr", "Contact" %></li>
-          <li><%= link_to 'Déconnexion', destroy_user_session_path, method: :delete %></li>
-        <% else %>
-          <li><%= link_to 'Connexion', new_user_session_path %></li>
-        <% end %>
-        </ul>
+        <div class="collapse navbar-collapse" id="menuNavbar">
+          <ul class="nav navbar-right navbar-nav">
+            <% if current_user.present? %>
+                <%= yield :contextual_menu_items %>
+                <li><%= mail_to "contact@kazimirski.fr", "Contact" %></li>
+                <li><%= link_to 'Déconnexion', destroy_user_session_path, method: :delete %></li>
+            <% else %>
+                <li><%= link_to 'Connexion', new_user_session_path %></li>
+            <% end %>
+          </ul>
+        </div>
 
       </div>
     </nav>

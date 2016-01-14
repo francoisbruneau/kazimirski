@@ -16,3 +16,14 @@
 //= require summernote
 //= require summernote/locales/fr-FR
 //= require_tree .
+
+// Push the transcription form down to make way for the menu when it expands.
+jQuery(document).ready(function() {
+   jQuery('#menuNavbar')
+       .on('show.bs.collapse', function () {
+           jQuery('.transcription-form').css('top', '300px');
+   })
+       .on('hide.bs.collapse', function() {
+           jQuery('.transcription-form').css('top', '70px');
+       })
+});
