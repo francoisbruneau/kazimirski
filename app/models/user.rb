@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
 
   has_paper_trail
 
+  after_create :send_new_sign_up_notification_mail
+
   def is_reviewer?
     self.role.name == 'reviewer'
   end
@@ -59,5 +61,9 @@ class User < ActiveRecord::Base
   private
   def set_default_role
     self.role ||= Role.find_by_name('transcriber')
+  end
+
+  def send_new_sign_up_notification_mail
+    Notifier.new_sign_up(self.email, self.created_at).deliver_now
   end
 end

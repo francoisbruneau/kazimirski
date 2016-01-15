@@ -26,5 +26,7 @@ module Kazimirski
 
     config.x.captchas = YAML.load_file("#{Rails.root}/config/captchas.yml")
 
+    config.x.mailer_sender = '"Projet Kazimirski" <contact@kazimirski.fr>'
+
   end
 end
