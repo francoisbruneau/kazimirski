@@ -34,6 +34,7 @@ class PagesController < ApplicationController
     if params[:commit].present?
       if @page.reviewer_id == current_user.id
         @page.reviewed_at = Time.now
+        Notifier.page_reviewed(@page).deliver_now
         flash[:notice] = "Merci! La page a été validée comme correcte."
       elsif @page.transcriber_id == current_user.id
         @page.submitted_at = Time.now

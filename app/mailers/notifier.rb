@@ -10,4 +10,9 @@ class Notifier < ApplicationMailer
     @page = page
     mail(to: 'contact+notifications@kazimirski.fr', subject: "Nouvelle page transcrite")
   end
+
+  def page_reviewed(page)
+    @page = page
+    mail(to: @page.transcriber.email, subject: "Votre page a été validée")
+  end
 end
