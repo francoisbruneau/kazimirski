@@ -2,4 +2,12 @@
 
 <p>Vous pouvez confirmer votre inscription en cliquant sur le lien ci-dessous :</p>
 
-<p><%= link_to 'Confirmer mon inscription', confirmation_url(@resource, confirmation_token: @token) %></p>
+<table class="button primary radius" style="margin-bottom: 10px;">
+  <tr>
+    <td>
+      <%= link_to 'Confirmer mon inscription', confirmation_url(@resource, confirmation_token: @token) %>
+    </td>
+  </tr>
+</table>
+
+<p></p>
