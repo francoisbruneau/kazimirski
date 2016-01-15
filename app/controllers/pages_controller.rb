@@ -37,6 +37,7 @@ class PagesController < ApplicationController
         flash[:notice] = "Merci! La page a été validée comme correcte."
       elsif @page.transcriber_id == current_user.id
         @page.submitted_at = Time.now
+        Notifier.new_page_submitted(@page).deliver_now
         flash[:notice] = "Merci! La page a été envoyée pour relecture."
       end
     else
