@@ -18,6 +18,8 @@ gem 'devise', '~> 3.5', '>= 3.5.3'
 gem 'password_strength', '~> 1.1', '>= 1.1.1'
 gem 'rails-i18n', '~> 4.0.0'
 
+gem 'premailer-rails', '~> 1.8', '>= 1.8.2'
+
 gem 'paper_trail', '~> 4.0', '>= 4.0.1'
 gem 'rails_admin', '~> 0.8.1'
 gem 'rails_admin_history_rollback', '~> 0.0.6'
