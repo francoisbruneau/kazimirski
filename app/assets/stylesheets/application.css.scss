@@ -49,6 +49,11 @@ nav .alert {
   .navbar-header {
     display: none;
   }
+
+  .navbar-collapse {
+    display: block;
+    visibility: visible;
+  }
 }
 
 .simple_form {
