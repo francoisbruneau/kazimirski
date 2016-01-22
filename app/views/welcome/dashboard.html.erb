@@ -2,7 +2,7 @@
 
   <h1>Tableau de bord</h1>
 
-  <h2>Bienvenue, <%= current_user.email %>!</h2>
+  <h4>Bienvenue, <%= current_user.email %>!</h4>
 
   <p>Vous avez transcrit <%= current_user.submitted_pages.count %> pages, dont <%= current_user.integrated_pages.count %> ont été validées et <%= current_user.submitted_pages.pending_review.count %> sont en attente de validation.</p>
 
