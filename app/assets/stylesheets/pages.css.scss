@@ -101,3 +101,9 @@ input[type="submit"] {
 .col-bottom {
   vertical-align: bottom;
 }
+
+/* Hide all tooltips until Bootstrap bug is resolved */
+/* https://github.com/twbs/bootstrap/issues/16028 */
+.tooltip {
+  display: none !important;
+}
