@@ -11,88 +11,16 @@
 
     <!-- Custom CSS -->
     <style type="text/css">
-        .header {
-            background: #FFCC66;
-        }
 
-        table.button td a, table.tiny-button td a, table.small-button td a, table.medium-button td a, table.large-button td a {
-            display: block !important;
-        }
-
-        table.button td, table.tiny-button td, table.small-button td, table.medium-button td, table.large-button td {
-            -webkit-transition: all 225ms ease;
-            -moz-transition: all 225ms ease;
-            transition: all 225ms ease;
-        }
     </style>
   </head>
 
   <body>
-  <table class="body">
-    <tr>
-      <td class="center" align="center" valign="top">
-        <center>
+    <%= yield %>
 
-          <table class="row header">
-            <tr>
-              <td class="center" align="center">
-                <center>
-
-                  <table class="container">
-                    <tr>
-                      <td class="wrapper last">
-
-                        <table class="twelve columns">
-                          <tr>
-                            <td>
-                              <h5>Projet Kazimirski</h5>
-                            </td>
-                            <td class="expander"></td>
-                          </tr>
-                        </table>
-
-                      </td>
-                    </tr>
-                  </table>
-
-                </center>
-              </td>
-            </tr>
-          </table>
-
-          <table class="container content">
-            <tr>
-              <td>
-
-                <table class="row">
-                  <tr>
-                    <td class="wrapper last">
-
-                      <table class="twelve columns">
-                        <tr>
-                          <td>
-                            <%= yield %>
-
-                            <p>
-                              <b>Projet Kazimirski</b><br/>
-                              <a href="http://projet.kazimirski.fr">http://projet.kazimirski.fr</a>
-                            </p>
-                          </td>
-                          <td class="expander"></td>
-                        </tr>
-                      </table>
-
-                    </td>
-                  </tr>
-                </table>
-
-              </td>
-            </tr>
-          </table>
-
-        </center>
-      </td>
-    </tr>
-  </table>
+    <p>
+      <b>Projet Kazimirski</b><br/>
+      <a href="http://projet.kazimirski.fr">http://projet.kazimirski.fr</a>
+    </p>
   </body>
 </html>
