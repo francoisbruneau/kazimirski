@@ -30,6 +30,10 @@ input[type="submit"] {
   display: none;
 }
 
+.note-editable {
+  font-size: 18px; /* More comfortable for Arabic */
+}
+
 .scanned-image-container {
   height: 100%;
 }
