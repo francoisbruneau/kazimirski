@@ -39,10 +39,22 @@
 
                                 nea.css('position', 'static');
                             },
-                            onKeyup: function(e) {
-                                // console.log('Key is released:', e);
+                            onKeydown: function(e) {
+                                // Autocorrect logic
+                                // -----------------
 
-                                // TODO implement some autocorrect here
+                                // Make sure index numbers (ex: '4.') following an arabic/right-to-left word
+                                // are treated as left-to-right elements.
+                                // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
+                                // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
+                                if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) { //0-9 only
+                                    var node = document.createElement('span');
+                                    node.setAttribute('dir', 'ltr');
+                                    node.className = 'meaning-index';
+                                    node.innerHTML = String.fromCharCode(e.keyCode) + '. ';
+                                    $('#wysiwyg').summernote('insertNode', node);
+                                    e.preventDefault();
+                                }
                             }
                         }
                     }
