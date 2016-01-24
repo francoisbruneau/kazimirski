@@ -61,17 +61,14 @@
                                     space.className = 'following-meaning-index';
                                     space.innerHTML = "\u200B";
 
-                                    if (window.getSelection) {
-                                        var sel = window.getSelection();
-                                        if (sel.getRangeAt && sel.rangeCount) {
-                                            range = sel.getRangeAt(0);
-                                        }
+                                    var sel = window.getSelection();
+                                    if (sel.getRangeAt && sel.rangeCount) {
+                                        range = sel.getRangeAt(0);
                                     }
 
                                     range.insertNode(space);
                                     range.insertNode(node);
                                     range.collapse(false);
-                                    var sel = window.getSelection();
                                     sel.removeAllRanges();
                                     sel.addRange(range);
 
