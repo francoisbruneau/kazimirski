@@ -116,6 +116,12 @@
                                     pasteHtmlAtCaret('&#x200E;' + String.fromCharCode(e.keyCode) + '. ' , false);
                                     e.preventDefault();
                                 }
+
+                                else if (e.keyCode === 109 || e.keyCode === 189) {
+                                    // Replace minus (on numpad or main keyboard) by long dash
+                                    pasteHtmlAtCaret('&#x2014;', false);
+                                    e.preventDefault();
+                                }
                             }
                         }
                     }
