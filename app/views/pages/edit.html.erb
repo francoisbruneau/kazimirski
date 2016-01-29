@@ -4,6 +4,54 @@
 
 <% content_for :custom_js do %>
     <script type="text/javascript">
+        // https://gist.github.com/michelcmorel/6725279
+        // add html elements inside content editable area, credits Tim Down on stackoverflow.
+        // original post at:http://stackoverflow.com/questions/6690752/insert-html-at-caret-in-a-contenteditable-div
+        function pasteHtmlAtCaret(html, selectPastedContent) {
+            var sel, range;
+            if (window.getSelection) {
+                // IE9 and non-IE
+                sel = window.getSelection();
+                if (sel.getRangeAt && sel.rangeCount) {
+                    range = sel.getRangeAt(0);
+                    range.deleteContents();
+
+                    // Range.createContextualFragment() would be useful here but is
+                    // only relatively recently standardized and is not supported in
+                    // some browsers (IE9, for one)
+                    var el = document.createElement("div");
+                    el.innerHTML = html;
+                    var frag = document.createDocumentFragment(), node, lastNode;
+                    while ( (node = el.firstChild) ) {
+                        lastNode = frag.appendChild(node);
+                    }
+                    var firstNode = frag.firstChild;
+                    range.insertNode(frag);
+
+                    // Preserve the selection
+                    if (lastNode) {
+                        range = range.cloneRange();
+                        range.setStartAfter(lastNode);
+                        if (selectPastedContent) {
+                            range.setStartBefore(firstNode);
+                        } else {
+                            range.collapse(true);
+                        }
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                    }
+                }
+            } else if ( (sel = document.selection) && sel.type != "Control") {
+                // IE < 9
+                var originalRange = sel.createRange();
+                originalRange.collapse(true);
+                sel.createRange().pasteHTML(html);
+                var range = sel.createRange();
+                range.setEndPoint("StartToStart", originalRange);
+                range.select();
+            }
+        }
+
         jQuery(document).ready(function() {
             if(!Cookies.get('transcriptionInstructionsDismissed')) {
                 Cookies.set('transcriptionInstructionsDismissed', true);
@@ -43,11 +91,28 @@
                                 // Autocorrect logic
                                 // -----------------
 
+                                // Commas
+                                // ******
+                                // Synonyms are usually separated by commas. They should appear
+                                // in the order in which they are typed, i.e. left-to-right.
+                                // But by default, BiDi algorithm treats the list of synonyms
+                                // as a right-to-left sentence, and the words order is reversed.
+                                // To fix this, we insert a left-to-right mark before each comma character
+                                // in order to force a left-to-right word sequence.
+
+                                if (e.keyCode === 188) {
+                                    // Insert a left-to-right mark (U+200E) then the actual comma
+                                    pasteHtmlAtCaret('&#x200E;,', false);
+                                    e.preventDefault();
+                                }
+
+                                // Index numbers
+                                // *************
                                 // Make sure index numbers (ex: '4.') following an arabic/right-to-left word
                                 // are treated as left-to-right elements.
                                 // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
                                 // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
-                                if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) { //0-9 only
+                                else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) { //0-9 only
                                     var node = document.createElement('span');
                                     node.setAttribute('dir', 'ltr');
                                     node.className = 'meaning-index';
@@ -59,7 +124,7 @@
                                     // See: http://stackoverflow.com/questions/14954316/contenteditable-move-cursor-outside-inserted-html-node-webkit-ie
                                     var space = document.createElement('span');
                                     space.className = 'following-meaning-index';
-                                    space.innerHTML = "\u200B";
+                                    space.innerHTML = "\u200B"; // Zero-width space character
 
                                     var sel = window.getSelection();
                                     if (sel.getRangeAt && sel.rangeCount) {
