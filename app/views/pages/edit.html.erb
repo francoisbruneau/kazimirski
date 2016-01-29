@@ -113,30 +113,7 @@
                                 // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
                                 // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
                                 else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) { //0-9 only
-                                    var node = document.createElement('span');
-                                    node.setAttribute('dir', 'ltr');
-                                    node.className = 'meaning-index';
-                                    node.innerHTML = String.fromCharCode(e.keyCode) + '. ';
-
-                                    // Create a new <span> before next character is entered and put the caret there,
-                                    // otherwise the following text will also be inside
-                                    // the 'meaning-index' span.
-                                    // See: http://stackoverflow.com/questions/14954316/contenteditable-move-cursor-outside-inserted-html-node-webkit-ie
-                                    var space = document.createElement('span');
-                                    space.className = 'following-meaning-index';
-                                    space.innerHTML = "\u200B"; // Zero-width space character
-
-                                    var sel = window.getSelection();
-                                    if (sel.getRangeAt && sel.rangeCount) {
-                                        range = sel.getRangeAt(0);
-                                    }
-
-                                    range.insertNode(space);
-                                    range.insertNode(node);
-                                    range.collapse(false);
-                                    sel.removeAllRanges();
-                                    sel.addRange(range);
-
+                                    pasteHtmlAtCaret('&#x200E;' + String.fromCharCode(e.keyCode) + '. ' , false);
                                     e.preventDefault();
                                 }
                             }
