@@ -21,6 +21,21 @@ input[type="submit"] {
   margin-right:0;
 }
 
+@media (max-height: 820px) {
+  .row.editor {
+    height: 75%;
+  }
+}
+
+@media (max-width: 500px) {
+  .bottom-bar input {
+    width: 40%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
 .panel {
   margin-bottom: 0px;
   margin-right: 45px;
