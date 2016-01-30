@@ -120,6 +120,14 @@
                                     pasteHtmlAtCaret('&#x2014;', false);
                                     e.preventDefault();
                                 }
+                            },
+                            onKeyup: function(e) {
+                                // If current font style is italic, reset it when starting a new paragraph
+                                if (e.keyCode === 13) {
+                                    if ($('.note-btn-italic').hasClass('active')) {
+                                        $('#wysiwyg').summernote('italic');
+                                    }
+                                }
                             }
                         }
                     }
