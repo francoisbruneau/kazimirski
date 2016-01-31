@@ -14,7 +14,6 @@
         <%= f.input :captcha, required: true do %>
           <p>Protection anti-spam : veuillez recopier l'extrait ci-dessous.</p>
           <%= image_tag("/captcha/#{@captcha['uuid']}.png", width: '100%', height: 'auto' )%>
-          <h2><%= ENV["CAPTCHA_#{@captcha['uuid']}"] %></h2>
           <%= text_field_tag(:user_captcha, nil, class: 'form-control input-lg', autofocus: true) %>
         <% end %>
       <% end %>
