@@ -1,5 +1,3 @@
-# TODO create rake task which generates all Pages from source PDFs (via archive.org)
-
 class Page < ActiveRecord::Base
   belongs_to :transcriber, class_name: "User", foreign_key: "transcriber_id"
   belongs_to :reviewer, class_name: "User", foreign_key: "reviewer_id"
@@ -12,6 +10,8 @@ class Page < ActiveRecord::Base
   scope :not_transcribed_by, ->(user_id) { where("transcriber_id != ?", user_id) }
 
   validates :book_nr, :source_page_nr, numericality: true, presence: true
+
+  before_save :sanitize_content
 
   has_paper_trail
 
@@ -39,6 +39,14 @@ class Page < ActiveRecord::Base
 
   def viewer_url
     "https://archive.org/stream/dictionnairearab0#{self.book_nr}bibeuoft#page/#{self.source_page_nr}/mode/1up"
+  end
+
+  private
+
+  def sanitize_content
+    white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
+    allowed_tags = ['p', 'span', 'i']
+    self.content = white_list_sanitizer.sanitize(self.content, { :tags => allowed_tags })
   end
 
 end
