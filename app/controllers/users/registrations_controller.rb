@@ -51,7 +51,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     result = false
 
     captcha_uuid = params["captcha_uuid"]
-    user_entered_captcha = params["user_captcha"]
+    user_entered_captcha = params["user_captcha"].strip
 
     reference_captcha = ENV["CAPTCHA_#{captcha_uuid}"]
 
