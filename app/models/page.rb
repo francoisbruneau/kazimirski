@@ -45,7 +45,7 @@ class Page < ActiveRecord::Base
 
   def sanitize_content
     white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
-    allowed_tags = ['p', 'span', 'i']
+    allowed_tags = ['br', 'em']
     self.content = white_list_sanitizer.sanitize(self.content, { :tags => allowed_tags })
   end
 

@@ -21,6 +21,40 @@ input[type="submit"] {
   margin-right:0;
 }
 
+trix-toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 5px;
+
+  & .button_groups {
+    button.bold {
+      display: none;
+    }
+    button.strike {
+      display: none;
+    }
+    button.link {
+      display: none;
+    }
+    .block_tools {
+      display: none;
+    }
+
+  }
+}
+
+trix-editor {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  font-size: 18px; /* More comfortable for Arabic */
+}
+
 @media (max-height: 820px) {
   .row.editor {
     height: 75%;
@@ -39,14 +73,6 @@ input[type="submit"] {
 .panel {
   margin-bottom: 0px;
   margin-right: 45px;
-}
-
-.note-resizebar {
-  display: none;
-}
-
-.note-editable {
-  font-size: 18px; /* More comfortable for Arabic */
 }
 
 .scanned-image-container {

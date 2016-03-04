@@ -12,6 +12,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require trix
  */
 
 $grid-gutter-width: 90px;
@@ -20,7 +21,6 @@ $grid-gutter-width: 90px;
 @import "bootstrap";
 @import "bootstrap/theme";
 @import "font-awesome";
-@import "summernote";
 
 .jumbotron {
   background-color:  #FFCC66;

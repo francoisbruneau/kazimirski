@@ -10,7 +10,7 @@ gem 'jquery-rails'
 
 gem 'sass-rails', '~> 4.0'
 gem 'bootstrap-sass', '~> 3.3.1'
-gem 'summernote-rails', '~> 0.7.1.0'
+gem 'trix', '~> 0.9.4'
 gem 'font-awesome-rails', '~> 4.5'
 
 gem 'simple_form'

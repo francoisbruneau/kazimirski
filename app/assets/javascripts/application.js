@@ -13,8 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require summernote
-//= require summernote/locales/fr-FR
+//= require trix
 //= require_tree .
 
 // Push the transcription form down to make way for the menu when it expands.

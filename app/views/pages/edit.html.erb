@@ -52,90 +52,74 @@
             }
         }
 
+        // Display the transcription instructions on first use.
         jQuery(document).ready(function() {
             if(!Cookies.get('transcriptionInstructionsDismissed')) {
                 Cookies.set('transcriptionInstructionsDismissed', true);
                 jQuery('#instructions-modal').modal();
             }
+        });
 
-            $('#wysiwyg').summernote(
-                    {
-                        lang: 'fr-FR',
-                        // http://summernote.org/deep-dive/
-                        toolbar: [
-                                ['style', ['italic']]
-                        ],
-                        callbacks: {
-                            onInit: function() {
-                                // Hack to set 100% height
-                                // https://github.com/summernote/summernote/issues/451
-                                var ne = $('div.note-editable');
-                                var ned = $('div.note-editor');
-                                var nea = $('div.note-editing-area');
-                                ned.css('position', 'absolute');
-                                ned.css('top', 0);
-                                ned.css('right', 0);
-                                ned.css('bottom', 0);
-                                ned.css('left', 0);
-                                ne.css('position', 'absolute');
-                                ne.css('top', 40);
-                                ne.css('right', 0);
-                                ne.css('bottom', 0);
-                                ne.css('left', 0);
+        var keyPressHandler = function (e) {
+            e = e || window.event;
+            var charCode = e.which || e.keyCode;
+            var charTyped = String.fromCharCode(charCode);
 
-                                nea.css('position', 'static');
+            // Autocorrect logic
+            // -----------------
 
-                                ne.on("keypress", function(e) {
-                                    e = e || window.event;
-                                    var charCode = e.which || e.keyCode;
-                                    var charTyped = String.fromCharCode(charCode);
+            // Commas
+            // ******
+            // Synonyms are usually separated by commas. They should appear
+            // in the order in which they are typed, i.e. left-to-right.
+            // But by default, BiDi algorithm treats the list of synonyms
+            // as a right-to-left sentence, and the words order is reversed.
+            // To fix this, we insert a left-to-right mark before each comma character
+            // in order to force a left-to-right word sequence.
+            if (charTyped === ',') {
+                // Insert a left-to-right mark (U+200E) then the actual comma
+                pasteHtmlAtCaret('&#x200E;,', false);
+                e.preventDefault();
+            }
 
-                                    // Autocorrect logic
-                                    // -----------------
+            // Index numbers
+            // *************
+            // Make sure index numbers (ex: '4.') following an arabic/right-to-left word
+            // are treated as left-to-right elements.
+            // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
+            // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
+            else if ( /^\d+$/.test(charTyped) ) { //0-9 only
+                pasteHtmlAtCaret('&#x200E;' + charTyped + '. ' , false);
+                e.preventDefault();
+            }
 
-                                    // Commas
-                                    // ******
-                                    // Synonyms are usually separated by commas. They should appear
-                                    // in the order in which they are typed, i.e. left-to-right.
-                                    // But by default, BiDi algorithm treats the list of synonyms
-                                    // as a right-to-left sentence, and the words order is reversed.
-                                    // To fix this, we insert a left-to-right mark before each comma character
-                                    // in order to force a left-to-right word sequence.
-                                    if (charTyped === ',') {
-                                        // Insert a left-to-right mark (U+200E) then the actual comma
-                                        pasteHtmlAtCaret('&#x200E;,', false);
-                                        e.preventDefault();
-                                    }
+            else if (charTyped === '-') {
+                // Replace minus (on numpad or main keyboard) by long dash
+                pasteHtmlAtCaret('&#x2014;', false);
+                e.preventDefault();
+            }
+        };
 
-                                    // Index numbers
-                                    // *************
-                                    // Make sure index numbers (ex: '4.') following an arabic/right-to-left word
-                                    // are treated as left-to-right elements.
-                                    // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
-                                    // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
-                                    else if ( /^\d+$/.test(charTyped) ) { //0-9 only
-                                        pasteHtmlAtCaret('&#x200E;' + charTyped + '. ' , false);
-                                        e.preventDefault();
-                                    }
+        var keyUpHandler = function (e) {
+            // If current font style is italic, reset it when starting a new paragraph
+            if (e.keyCode === 13) {
+                var element = document.querySelector("trix-editor")
+                element.editor  // is a Trix.Editor instance
+                element.editor.deactivateAttribute("italic");
+            }
+        };
 
-                                    else if (charTyped === '-') {
-                                        // Replace minus (on numpad or main keyboard) by long dash
-                                        pasteHtmlAtCaret('&#x2014;', false);
-                                        e.preventDefault();
-                                    }
-                                });
-                            },
-                            onKeyup: function(e) {
-                                // If current font style is italic, reset it when starting a new paragraph
-                                if (e.keyCode === 13) {
-                                    if ($('.note-btn-italic').hasClass('active')) {
-                                        $('#wysiwyg').summernote('italic');
-                                    }
-                                }
-                            }
-                        }
-                    }
-            );
+        var bindKeyHandlers = function () {
+            $('trix-editor').on("keypress", keyPressHandler);
+            $('trix-editor').on("keyup", keyUpHandler);
+        };
+
+        bindKeyHandlers();
+
+        // If, for some reason, Trix have not initialized yet,
+        // bind the handlers when it does.
+        document.addEventListener("trix-initialize", function(event) {
+            bindKeyHandlers();
         });
     </script>
 <% end %>
@@ -150,7 +134,7 @@
               </div>
             </div>
             <div class="col-xs-6 col-xs-height col-full-height col-input">
-              <%= f.input :content, input_html: { class: 'input-lg', id: 'wysiwyg' }, wrapper: false, label: false %>
+              <%= f.trix_editor :content %>
             </div>
         </div>
       </div>
