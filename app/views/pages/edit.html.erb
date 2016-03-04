@@ -84,42 +84,46 @@
                                 ne.css('left', 0);
 
                                 nea.css('position', 'static');
-                            },
-                            onKeydown: function(e) {
-                                // Autocorrect logic
-                                // -----------------
 
-                                // Commas
-                                // ******
-                                // Synonyms are usually separated by commas. They should appear
-                                // in the order in which they are typed, i.e. left-to-right.
-                                // But by default, BiDi algorithm treats the list of synonyms
-                                // as a right-to-left sentence, and the words order is reversed.
-                                // To fix this, we insert a left-to-right mark before each comma character
-                                // in order to force a left-to-right word sequence.
+                                ne.on("keypress", function(e) {
+                                    e = e || window.event;
+                                    var charCode = e.which || e.keyCode;
+                                    var charTyped = String.fromCharCode(charCode);
 
-                                if (e.keyCode === 188) {
-                                    // Insert a left-to-right mark (U+200E) then the actual comma
-                                    pasteHtmlAtCaret('&#x200E;,', false);
-                                    e.preventDefault();
-                                }
+                                    // Autocorrect logic
+                                    // -----------------
 
-                                // Index numbers
-                                // *************
-                                // Make sure index numbers (ex: '4.') following an arabic/right-to-left word
-                                // are treated as left-to-right elements.
-                                // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
-                                // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
-                                else if ((e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105)) { //0-9 only
-                                    pasteHtmlAtCaret('&#x200E;' + String.fromCharCode(e.keyCode) + '. ' , false);
-                                    e.preventDefault();
-                                }
+                                    // Commas
+                                    // ******
+                                    // Synonyms are usually separated by commas. They should appear
+                                    // in the order in which they are typed, i.e. left-to-right.
+                                    // But by default, BiDi algorithm treats the list of synonyms
+                                    // as a right-to-left sentence, and the words order is reversed.
+                                    // To fix this, we insert a left-to-right mark before each comma character
+                                    // in order to force a left-to-right word sequence.
+                                    if (charTyped === ',') {
+                                        // Insert a left-to-right mark (U+200E) then the actual comma
+                                        pasteHtmlAtCaret('&#x200E;,', false);
+                                        e.preventDefault();
+                                    }
 
-                                else if (e.keyCode === 109 || e.keyCode === 189) {
-                                    // Replace minus (on numpad or main keyboard) by long dash
-                                    pasteHtmlAtCaret('&#x2014;', false);
-                                    e.preventDefault();
-                                }
+                                    // Index numbers
+                                    // *************
+                                    // Make sure index numbers (ex: '4.') following an arabic/right-to-left word
+                                    // are treated as left-to-right elements.
+                                    // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
+                                    // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
+                                    else if ( /^\d+$/.test(charTyped) ) { //0-9 only
+                                        pasteHtmlAtCaret('&#x200E;' + charTyped + '. ' , false);
+                                        e.preventDefault();
+                                    }
+
+                                    else if (charTyped === '-') {
+                                        // Replace minus (on numpad or main keyboard) by long dash
+                                        pasteHtmlAtCaret('&#x2014;', false);
+                                        e.preventDefault();
+                                    }
+                                });
                             },
                             onKeyup: function(e) {
                                 // If current font style is italic, reset it when starting a new paragraph
