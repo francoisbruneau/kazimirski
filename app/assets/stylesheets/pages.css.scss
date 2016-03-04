@@ -53,6 +53,7 @@ trix-editor {
   left: 0;
 
   font-size: 18px; /* More comfortable for Arabic */
+  overflow: scroll;
 }
 
 @media (max-height: 820px) {
