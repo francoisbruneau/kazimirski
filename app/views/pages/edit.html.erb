@@ -116,6 +116,28 @@
 
             bindKeyHandlers();
         });
+
+        // Make the editor toolbar float over the text
+        // When the virtual keyboard is shown on iOS
+        // In order to make sure the buttons are always accessible.
+        var headerSize = 60;
+        var trixToolbar = $('trix-toolbar');
+        $(window).scroll(function() {
+            console.log('hello');
+            $('trix-toolbar').hide();
+           setTimeout(function() {
+               $('trix-toolbar').show();
+               var scrollY = window.scrollY;
+               if(scrollY > headerSize) {
+                   $('trix-toolbar').css('top', scrollY - headerSize); // TODO: Cache jQuery object without breaking the function!
+                   $('trix-toolbar').addClass('floating');
+               } else {
+                   $('trix-toolbar').css('top', '0px');
+                   $('trix-toolbar').removeClass('floating');
+               }
+           }, 500);
+        });
+
     </script>
 <% end %>
 

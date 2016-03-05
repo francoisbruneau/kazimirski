@@ -28,7 +28,17 @@ trix-toolbar {
   bottom: 0;
   left: 5px;
 
+  &.floating {
+    right: 5px;
+    & .button_groups {
+      float: right;
+    }
+  }
+
   & .button_groups {
+    button {
+      z-index: 10; /* To make sure the buttons appears cleanly on top of text when floating */
+    }
     button.bold {
       display: none;
     }
