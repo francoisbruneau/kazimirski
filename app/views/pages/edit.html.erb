@@ -52,14 +52,6 @@
             }
         }
 
-        // Display the transcription instructions on first use.
-        jQuery(document).ready(function() {
-            if(!Cookies.get('transcriptionInstructionsDismissed')) {
-                Cookies.set('transcriptionInstructionsDismissed', true);
-                jQuery('#instructions-modal').modal();
-            }
-        });
-
         var keyPressHandler = function (e) {
             e = e || window.event;
             var charCode = e.which || e.keyCode;
@@ -114,11 +106,14 @@
             $('trix-editor').on("keyup", keyUpHandler);
         };
 
-        bindKeyHandlers();
 
-        // If, for some reason, Trix have not initialized yet,
-        // bind the handlers when it does.
-        document.addEventListener("trix-initialize", function(event) {
+        // Display the transcription instructions on first use.
+        jQuery(document).ready(function() {
+            if(!Cookies.get('transcriptionInstructionsDismissed')) {
+                Cookies.set('transcriptionInstructionsDismissed', true);
+                jQuery('#instructions-modal').modal();
+            }
+
             bindKeyHandlers();
         });
     </script>
