@@ -92,8 +92,7 @@ var keyPressHandler = function (e) {
 var keyUpHandler = function (e) {
     // If current font style is italic, reset it when starting a new paragraph
     if (e.keyCode === 13) {
-        var element = document.querySelector("trix-editor")
-        element.editor  // is a Trix.Editor instance
+        var element = document.querySelector("trix-editor"); // TODO: Cache this
         element.editor.deactivateAttribute("italic");
     }
 };
