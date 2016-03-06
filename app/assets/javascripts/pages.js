@@ -67,8 +67,7 @@ var keyPressHandler = function (e) {
     // in order to force a left-to-right word sequence.
     if (charTyped === ',') {
         // Insert a left-to-right mark (U+200E) then the actual comma
-        pasteHtmlAtCaret('&#x200E;,', false);
-        e.preventDefault();
+        pasteHtmlAtCaret('&#x200E;', false);
     }
 
     // Index numbers
@@ -78,15 +77,9 @@ var keyPressHandler = function (e) {
     // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
     // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
     else if ( /^\d+$/.test(charTyped) ) { //0-9 only
-        pasteHtmlAtCaret('&#x200E;' + charTyped, false);
-        e.preventDefault();
+        pasteHtmlAtCaret('&#x200E;', false);
     }
 
-    else if (charTyped === '-') {
-        // Replace minus (on numpad or main keyboard) by long dash
-        pasteHtmlAtCaret('&#x2014;', false);
-        e.preventDefault();
-    }
 };
 
 var keyUpHandler = function (e) {
