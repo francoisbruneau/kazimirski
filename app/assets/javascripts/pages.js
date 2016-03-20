@@ -57,8 +57,8 @@ var keyPressHandler = function (e) {
     // Autocorrect logic
     // -----------------
 
-    // Commas
-    // ******
+    // Commas (same logic for dashes)
+    // ******************************
     // Synonyms are usually separated by commas. They should appear
     // in the order in which they are typed, i.e. left-to-right.
     // But by default, BiDi algorithm treats the list of synonyms
@@ -87,6 +87,39 @@ var keyUpHandler = function (e) {
     if (e.keyCode === 13) {
         var element = document.querySelector("trix-editor"); // TODO: Cache this
         element.editor.deactivateAttribute("italic");
+    }
+
+    // if before the cursor there is a normal space
+    // and more character before there is an arabic character
+    // then replace the normal space by a non-breaking space
+    // in order to avoid breaking arabic composed words
+
+    var element = document.querySelector("trix-editor"); // TODO: Cache this
+    var range = element.editor.getSelectedRange();
+    var text = $('trix-editor').text();
+
+    // if there is no selection
+    // and if there are at least 2 characters before the cursor
+    // (one space and one arabic for the autocorrect to apply)
+    if(range[0] > 1 && range[0] === range[1]) {
+        var indexOfLastCharacterEntered = range[0] - 1;
+        var lastCharacterEntered = text.charAt(indexOfLastCharacterEntered);
+
+        if(/\s/g.test(lastCharacterEntered)) {
+            var indexOfTheCharacterBeforeSpace = indexOfLastCharacterEntered - 1;
+            var characterEnteredBeforeSpace = text.charAt(indexOfTheCharacterBeforeSpace);
+
+            var arabic = /[\u0600-\u06FF]/;
+            if(arabic.test(characterEnteredBeforeSpace)) {
+                element.editor.setSelectedRange([range[0] - 1, range[0]]);
+
+                // Alternative:
+                // element.editor.deleteInDirection("backward");
+
+                // Use a narrow no-break space to separate word parts without indicating a word boundary.
+                element.editor.insertString("\u202F\u202F\u202F");
+            }
+        }
     }
 };
 
