@@ -1,6 +1,13 @@
+// http://stackoverflow.com/questions/7768269/ipad-safari-disable-scrolling-and-bounce-effect
+body,
+html {
+  position: fixed;
+}
+
 // http://stackoverflow.com/questions/19089384/twitter-bootstrap-3-two-columns-full-height
 html, body, form {
   height: 100%;
+  width: 100%;
 }
 
 .transcription-form {
