@@ -76,7 +76,7 @@ var keyPressHandler = function (e) {
     // are treated as left-to-right elements.
     // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
     // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
-    else if ( /^\d+$/.test(charTyped) ) { //0-9 only
+    else if ( /^\d$/.test(charTyped) ) { //0-9 only
         pasteHtmlAtCaret('&#x200E;', false);
     }
 
