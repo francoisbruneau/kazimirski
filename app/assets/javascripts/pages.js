@@ -1,5 +1,5 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+var KZ =  KZ || {};
+
 
 // https://gist.github.com/michelcmorel/6725279
 // add html elements inside content editable area, credits Tim Down on stackoverflow.
@@ -85,8 +85,7 @@ var keyPressHandler = function (e) {
 var keyUpHandler = function (e) {
     // If current font style is italic, reset it when starting a new paragraph
     if (e.keyCode === 13) {
-        var element = document.querySelector("trix-editor"); // TODO: Cache this
-        element.editor.deactivateAttribute("italic");
+        KZ.trixEditorElement.editor.deactivateAttribute("italic");
     }
 
     // if before the cursor there is a normal space
@@ -94,9 +93,8 @@ var keyUpHandler = function (e) {
     // then replace the normal space by a non-breaking space
     // in order to avoid breaking arabic composed words
 
-    var element = document.querySelector("trix-editor"); // TODO: Cache this
-    var range = element.editor.getSelectedRange();
-    var text = $('trix-editor').text();
+    var range = KZ.trixEditorElement.editor.getSelectedRange();
+    var text = KZ.trixEditor.text();
 
     // if there is no selection
     // and if there are at least 2 characters before the cursor
@@ -111,20 +109,16 @@ var keyUpHandler = function (e) {
 
             var arabic = /[\u0600-\u06FF]/;
             if(arabic.test(characterEnteredBeforeSpace)) {
-                element.editor.setSelectedRange([range[0] - 1, range[0]]);
+                KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
 
                 // Alternative:
                 // element.editor.deleteInDirection("backward");
 
                 // Use a narrow no-break space to separate word parts without indicating a word boundary.
-                element.editor.insertString("\u202F\u202F\u202F");
+                KZ.trixEditorElement.editor.insertString("\u202F\u202F\u202F");
             }
         }
     }
-};
-
-var bindKeyHandlers = function () {
-    $('trix-editor').on("keypress", keyPressHandler).on("keyup", keyUpHandler);
 };
 
 
@@ -135,7 +129,10 @@ jQuery(document).ready(function() {
         jQuery('#instructions-modal').modal();
     }
 
-    bindKeyHandlers();
+    KZ.trixEditor = $('trix-editor');
+    KZ.trixEditorElement = KZ.trixEditor[0];
+
+    KZ.trixEditor.on("keypress", keyPressHandler).on("keyup", keyUpHandler);
 
     // Make the editor toolbar float over the text
     // When the virtual keyboard is shown on iOS
