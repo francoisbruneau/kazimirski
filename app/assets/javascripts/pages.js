@@ -102,29 +102,37 @@ var keyUpHandler = function (e) {
         var sel = window.getSelection();
         var originalDomRange = sel.getRangeAt(0);
 
-        var extendedDomRange = document.createRange();
-        extendedDomRange.setStart(originalDomRange.startContainer, originalDomRange.startOffset - 2);
-        extendedDomRange.setEnd(originalDomRange.endContainer, originalDomRange.startOffset);
+        // The actual DOM range might be at the beginning of a node,
+        // For instance right after inserting a dash '-' character inside a word.
+        if (originalDomRange.startOffset > 1) {
+            var extendedDomRange = document.createRange();
+            extendedDomRange.setStart(originalDomRange.startContainer, originalDomRange.startOffset - 2);
+            extendedDomRange.setEnd(originalDomRange.endContainer, originalDomRange.startOffset);
 
-        var clonedSelection = extendedDomRange.cloneContents();
-        var div = document.createElement('div');
-        div.appendChild(clonedSelection);
-        var content = div.innerText;
+            var clonedSelection = extendedDomRange.cloneContents();
+            var div = document.createElement('div');
+            div.appendChild(clonedSelection);
+            var content = div.innerText;
 
-        var lastCharacterEntered = content[1];
+            var lastCharacterEntered = content[1];
 
-        if(/\s/g.test(lastCharacterEntered)) {
-            var characterEnteredBeforeSpace = content[0];
+            // If last character was a space, we may need to replace it by a non-breaking one.
+            if(/\s/g.test(lastCharacterEntered)) {
+                var characterEnteredBeforeSpace = content[0];
 
-            var arabic = /[\u0600-\u06FF]/;
-            if(arabic.test(characterEnteredBeforeSpace)) {
+                var arabic = /[\u0600-\u06FF]/;
+                if(arabic.test(characterEnteredBeforeSpace)) {
+                    KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
+
+                    // Use a narrow no-break space to separate word parts without indicating a word boundary.
+                    KZ.trixEditorElement.editor.insertString("\u202F\u202F\u202F");
+                }
+            }
+
+            // If last character was a simple dash, replace it by a long one
+            else if (lastCharacterEntered === '-') {
                 KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
-
-                // Alternative:
-                // element.editor.deleteInDirection("backward");
-
-                // Use a narrow no-break space to separate word parts without indicating a word boundary.
-                KZ.trixEditorElement.editor.insertString("\u202F\u202F\u202F");
+                KZ.trixEditorElement.editor.insertString("—");
             }
         }
     }
