@@ -1,5 +1,5 @@
 var KZ =  KZ || {};
-
+KZ.arabicRegex = /[\u0600-\u06FF]/;
 
 // https://gist.github.com/michelcmorel/6725279
 // add html elements inside content editable area, credits Tim Down on stackoverflow.
@@ -120,8 +120,7 @@ var keyUpHandler = function (e) {
             if(/\s/g.test(lastCharacterEntered)) {
                 var characterEnteredBeforeSpace = content[0];
 
-                var arabic = /[\u0600-\u06FF]/;
-                if(arabic.test(characterEnteredBeforeSpace)) {
+                if(KZ.arabicRegex.test(characterEnteredBeforeSpace)) {
                     KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
 
                     // Use a narrow no-break space to separate word parts without indicating a word boundary.
@@ -133,6 +132,13 @@ var keyUpHandler = function (e) {
             else if (lastCharacterEntered === '-') {
                 KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
                 KZ.trixEditorElement.editor.insertString("—");
+            }
+
+            // If last character was arabic, disable italic
+            else if (KZ.arabicRegex.test(lastCharacterEntered)) {
+                KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
+                KZ.trixEditorElement.editor.deactivateAttribute("italic");
+                KZ.trixEditorElement.editor.setSelectedRange([range[0], range[0]]);
             }
         }
     }
