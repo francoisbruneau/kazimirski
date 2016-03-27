@@ -38,27 +38,36 @@
       </div>
     </nav>
 
-    <% if notice.present? || alert.present? %>
-      <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-
-            <% if notice.present? %>
-              <div class="alert alert-info" role="alert"><%= notice %></div>
-            <% end %>
-
-            <% if alert.present? %>
-              <div class="alert alert-danger" role="alert"><%= alert %></div>
-            <% end %>
-
-            </div>
-          </div>
-      </div>
-    <% end %>
-
   <%= yield %>
 
     <%= javascript_include_tag 'application' %>
+
+    <% if notice.present? || alert.present? %>
+      <script>
+          PNotify.prototype.options.styling = "bootstrap3";
+
+          <% if notice.present? %>
+              $(function(){
+                  new PNotify({
+                      type: 'info',
+                      text: '<%= notice %>',
+                      delay: 3000,
+                      animate_speed: 'fast',
+                      icon: false
+                  });
+              });
+          <% end %>
+
+          <% if alert.present? %>
+              $(function(){
+                  new PNotify({
+                      type: 'error',
+                      text: '<%= alert %>'
+                  });
+              });
+          <% end %>
+      </script>
+  <% end %>
 
     <%= yield :custom_js %>
 

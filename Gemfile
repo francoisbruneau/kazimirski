@@ -7,6 +7,7 @@ gem 'rails', '~> 4.2', '>= 4.2.5'
 gem 'pg'
 
 gem 'jquery-rails'
+gem 'pnotify-rails', '~> 3.0'
 
 gem 'sass-rails', '~> 4.0'
 gem 'bootstrap-sass', '~> 3.3.1'
