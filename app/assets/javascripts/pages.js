@@ -93,19 +93,28 @@ var keyUpHandler = function (e) {
     // then replace the normal space by a non-breaking space
     // in order to avoid breaking arabic composed words
 
-    var range = KZ.trixEditorElement.editor.getSelectedRange();
-    var text = KZ.trixEditor.text();
+    var range = KZ.trixEditorElement.editor.getSelectedRange(); // returns a array of indexes, not a DOM Range
 
     // if there is no selection
     // and if there are at least 2 characters before the cursor
     // (one space and one arabic for the autocorrect to apply)
     if(range[0] > 1 && range[0] === range[1]) {
-        var indexOfLastCharacterEntered = range[0] - 1;
-        var lastCharacterEntered = text.charAt(indexOfLastCharacterEntered);
+        var sel = window.getSelection();
+        var originalDomRange = sel.getRangeAt(0);
+
+        var extendedDomRange = document.createRange();
+        extendedDomRange.setStart(originalDomRange.startContainer, originalDomRange.startOffset - 2);
+        extendedDomRange.setEnd(originalDomRange.endContainer, originalDomRange.startOffset);
+
+        var clonedSelection = extendedDomRange.cloneContents();
+        var div = document.createElement('div');
+        div.appendChild(clonedSelection);
+        var content = div.innerText;
+
+        var lastCharacterEntered = content[1];
 
         if(/\s/g.test(lastCharacterEntered)) {
-            var indexOfTheCharacterBeforeSpace = indexOfLastCharacterEntered - 1;
-            var characterEnteredBeforeSpace = text.charAt(indexOfTheCharacterBeforeSpace);
+            var characterEnteredBeforeSpace = content[0];
 
             var arabic = /[\u0600-\u06FF]/;
             if(arabic.test(characterEnteredBeforeSpace)) {
