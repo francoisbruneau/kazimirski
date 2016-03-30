@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '~> 4.2', '>= 4.2.5'
+gem 'rails', '~> 4.2.5'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
@@ -14,13 +14,13 @@ gem 'trix', '~> 0.9.4'
 gem 'font-awesome-rails', '~> 4.5'
 
 gem 'simple_form'
-gem 'devise', '~> 3.5', '>= 3.5.3'
-gem 'password_strength', '~> 1.1', '>= 1.1.1'
+gem 'devise', '~> 3.5.3'
+gem 'password_strength', '~> 1.1.1'
 gem 'rails-i18n', '~> 4.0.0'
 
-gem 'premailer-rails', '~> 1.8', '>= 1.8.2'
+gem 'premailer-rails', '~> 1.9.0'
 
-gem 'paper_trail', '~> 4.0', '>= 4.0.1'
+gem 'paper_trail', '~> 4.0.1'
 gem 'rails_admin', '~> 0.8.1'
 gem 'rails_admin_history_rollback', '~> 0.0.6'
 
