@@ -88,17 +88,71 @@ var keyUpHandler = function (e) {
         KZ.trixEditorElement.editor.deactivateAttribute("italic");
     }
 
-    // if before the cursor there is a normal space
-    // and more character before there is an arabic character
-    // then replace the normal space by a non-breaking space
-    // in order to avoid breaking arabic composed words
+    var currentRange = KZ.trixEditorElement.editor.getSelectedRange(); // returns a array of indexes, not a DOM Range
 
-    var range = KZ.trixEditorElement.editor.getSelectedRange(); // returns a array of indexes, not a DOM Range
+    // Delayed auto-correction
+    // i.e. for things were reliability is critical (i.e. replacing normal spaces by non-breaking ones
+    // to preserve compound word meaning.)
+    // ******************************************************************************************
+
+    if (!KZ.scheduledAutocorrect) {
+        KZ.scheduledAutocorrect = true;
+        setTimeout(function() {
+            KZ.scheduledAutocorrect = false;
+
+            var document = KZ.trixEditorElement.editor.getDocument();
+            var str = document.toString();
+
+            var i;
+            var length = str.length;
+            var previousCharCode = undefined;
+            for (i = 0; i < length; i++) {
+                var charCode = str.charCodeAt(i);
+
+                // Replace simple dash by long one
+                if (charCode === 45) {
+                    KZ.trixEditorElement.editor.setSelectedRange([i, i+1]);
+                    KZ.trixEditorElement.editor.insertString("—");
+                    KZ.trixEditorElement.editor.setSelectedRange(currentRange);
+                }
+
+                // Replace regular space between two arabic compound words
+                // by a narrow no-break space
+                // in order to separate word parts without indicating a word boundary.
+                else if (charCode === 32 && previousCharCode ) {
+                    if (previousCharCode >= 0x0600 && previousCharCode <= 0x06FF) {
+                        KZ.trixEditorElement.editor.setSelectedRange([i, i+1]);
+                        KZ.trixEditorElement.editor.insertString("\u202F");
+
+                        // Add two more narrow spaces for reading comfort
+                        KZ.trixEditorElement.editor.setSelectedRange([i+1, i+1]);
+                        KZ.trixEditorElement.editor.insertString("\u202F\u202F");
+
+                        // Restore the user's current range with a two character shift
+                        // since two new characters were added.
+                        var adaptedRangeStart = currentRange[0] + 2;
+                        var adaptedRangeEnd = currentRange[1] + 2;
+                        var adaptedRange = [adaptedRangeStart, adaptedRangeEnd];
+                        KZ.trixEditorElement.editor.setSelectedRange(adaptedRange);
+                    }
+                }
+                previousCharCode = charCode;
+            }
+        }, 250);
+    }
+
+
+
+    // As-you-type behaviour (i.e. disable italic when starting to type arabic)
+    // i.e. not a big deal if we miss one in case the actual range
+    // no longer matches the one when the character was entered
+    // by the time the event is processed.
+    // *****************************************************************************************
 
     // if there is no selection
     // and if there are at least 2 characters before the cursor
     // (one space and one arabic for the autocorrect to apply)
-    if(range[0] > 1 && range[0] === range[1]) {
+    if(currentRange[0] > 1 && currentRange[0] === currentRange[1]) {
         var sel = window.getSelection();
         var originalDomRange = sel.getRangeAt(0);
 
@@ -116,29 +170,11 @@ var keyUpHandler = function (e) {
 
             var lastCharacterEntered = content[1];
 
-            // If last character was a space, we may need to replace it by a non-breaking one.
-            if(/\s/g.test(lastCharacterEntered)) {
-                var characterEnteredBeforeSpace = content[0];
-
-                if(KZ.arabicRegex.test(characterEnteredBeforeSpace)) {
-                    KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
-
-                    // Use a narrow no-break space to separate word parts without indicating a word boundary.
-                    KZ.trixEditorElement.editor.insertString("\u202F\u202F\u202F");
-                }
-            }
-
-            // If last character was a simple dash, replace it by a long one
-            else if (lastCharacterEntered === '-') {
-                KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
-                KZ.trixEditorElement.editor.insertString("—");
-            }
-
             // If last character was arabic, disable italic
-            else if (KZ.arabicRegex.test(lastCharacterEntered)) {
-                KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
+            if (KZ.arabicRegex.test(lastCharacterEntered)) {
+                KZ.trixEditorElement.editor.setSelectedRange([currentRange[0] - 1, currentRange[0]]);
                 KZ.trixEditorElement.editor.deactivateAttribute("italic");
-                KZ.trixEditorElement.editor.setSelectedRange([range[0], range[0]]);
+                KZ.trixEditorElement.editor.setSelectedRange([currentRange[0], currentRange[0]]);
             }
         }
     }
@@ -154,6 +190,8 @@ jQuery(document).ready(function() {
 
     KZ.trixEditor = $('trix-editor');
     KZ.trixEditorElement = KZ.trixEditor[0];
+
+    KZ.scheduledAutocorrect = false; // flag used to manage delayed autocorrection
 
     KZ.trixEditor.on("keypress", keyPressHandler).on("keyup", keyUpHandler);
 
