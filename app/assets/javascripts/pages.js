@@ -1,5 +1,5 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+var KZ =  KZ || {};
+KZ.arabicRegex = /[\u0600-\u06FF]/;
 
 // https://gist.github.com/michelcmorel/6725279
 // add html elements inside content editable area, credits Tim Down on stackoverflow.
@@ -76,7 +76,7 @@ var keyPressHandler = function (e) {
     // are treated as left-to-right elements.
     // Otherwise, the BiDi algorithm thinks it belongs to the right-to-left word and places it wrong.
     // Further reading: https://www.w3.org/International/articles/inline-bidi-markup/
-    else if ( /^\d+$/.test(charTyped) ) { //0-9 only
+    else if ( /^\d$/.test(charTyped) ) { //0-9 only
         pasteHtmlAtCaret('&#x200E;', false);
     }
 
@@ -85,8 +85,7 @@ var keyPressHandler = function (e) {
 var keyUpHandler = function (e) {
     // If current font style is italic, reset it when starting a new paragraph
     if (e.keyCode === 13) {
-        var element = document.querySelector("trix-editor"); // TODO: Cache this
-        element.editor.deactivateAttribute("italic");
+        KZ.trixEditorElement.editor.deactivateAttribute("italic");
     }
 
     // if before the cursor there is a normal space
@@ -94,37 +93,55 @@ var keyUpHandler = function (e) {
     // then replace the normal space by a non-breaking space
     // in order to avoid breaking arabic composed words
 
-    var element = document.querySelector("trix-editor"); // TODO: Cache this
-    var range = element.editor.getSelectedRange();
-    var text = $('trix-editor').text();
+    var range = KZ.trixEditorElement.editor.getSelectedRange(); // returns a array of indexes, not a DOM Range
 
     // if there is no selection
     // and if there are at least 2 characters before the cursor
     // (one space and one arabic for the autocorrect to apply)
     if(range[0] > 1 && range[0] === range[1]) {
-        var indexOfLastCharacterEntered = range[0] - 1;
-        var lastCharacterEntered = text.charAt(indexOfLastCharacterEntered);
+        var sel = window.getSelection();
+        var originalDomRange = sel.getRangeAt(0);
 
-        if(/\s/g.test(lastCharacterEntered)) {
-            var indexOfTheCharacterBeforeSpace = indexOfLastCharacterEntered - 1;
-            var characterEnteredBeforeSpace = text.charAt(indexOfTheCharacterBeforeSpace);
+        // The actual DOM range might be at the beginning of a node,
+        // For instance right after inserting a dash '-' character inside a word.
+        if (originalDomRange.startOffset > 1) {
+            var extendedDomRange = document.createRange();
+            extendedDomRange.setStart(originalDomRange.startContainer, originalDomRange.startOffset - 2);
+            extendedDomRange.setEnd(originalDomRange.endContainer, originalDomRange.startOffset);
 
-            var arabic = /[\u0600-\u06FF]/;
-            if(arabic.test(characterEnteredBeforeSpace)) {
-                element.editor.setSelectedRange([range[0] - 1, range[0]]);
+            var clonedSelection = extendedDomRange.cloneContents();
+            var div = document.createElement('div');
+            div.appendChild(clonedSelection);
+            var content = div.innerText;
 
-                // Alternative:
-                // element.editor.deleteInDirection("backward");
+            var lastCharacterEntered = content[1];
 
-                // Use a narrow no-break space to separate word parts without indicating a word boundary.
-                element.editor.insertString("\u202F\u202F\u202F");
+            // If last character was a space, we may need to replace it by a non-breaking one.
+            if(/\s/g.test(lastCharacterEntered)) {
+                var characterEnteredBeforeSpace = content[0];
+
+                if(KZ.arabicRegex.test(characterEnteredBeforeSpace)) {
+                    KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
+
+                    // Use a narrow no-break space to separate word parts without indicating a word boundary.
+                    KZ.trixEditorElement.editor.insertString("\u202F\u202F\u202F");
+                }
+            }
+
+            // If last character was a simple dash, replace it by a long one
+            else if (lastCharacterEntered === '-') {
+                KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
+                KZ.trixEditorElement.editor.insertString("—");
+            }
+
+            // If last character was arabic, disable italic
+            else if (KZ.arabicRegex.test(lastCharacterEntered)) {
+                KZ.trixEditorElement.editor.setSelectedRange([range[0] - 1, range[0]]);
+                KZ.trixEditorElement.editor.deactivateAttribute("italic");
+                KZ.trixEditorElement.editor.setSelectedRange([range[0], range[0]]);
             }
         }
     }
-};
-
-var bindKeyHandlers = function () {
-    $('trix-editor').on("keypress", keyPressHandler).on("keyup", keyUpHandler);
 };
 
 
@@ -135,7 +152,10 @@ jQuery(document).ready(function() {
         jQuery('#instructions-modal').modal();
     }
 
-    bindKeyHandlers();
+    KZ.trixEditor = $('trix-editor');
+    KZ.trixEditorElement = KZ.trixEditor[0];
+
+    KZ.trixEditor.on("keypress", keyPressHandler).on("keyup", keyUpHandler);
 
     // Make the editor toolbar float over the text
     // When the virtual keyboard is shown on iOS

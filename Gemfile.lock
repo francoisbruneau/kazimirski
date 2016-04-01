@@ -69,7 +69,7 @@ GEM
     coffee-script-source (1.10.0)
     colorize (0.7.5)
     columnize (0.9.0)
-    css_parser (1.4.1)
+    css_parser (1.3.7)
       addressable
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -129,6 +129,7 @@ GEM
     password_strength (1.1.1)
       activemodel
     pg (0.17.1)
+    pnotify-rails (3.0.0)
     premailer (1.8.6)
       css_parser (>= 1.3.6)
       htmlentities (>= 4.0.0)
@@ -259,15 +260,16 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.1)
   byebug
   capistrano-rails
-  devise (~> 3.5.3)
+  devise (~> 3.5, >= 3.5.3)
   dotenv-rails
   font-awesome-rails (~> 4.5)
   jquery-rails
-  paper_trail (~> 4.0.1)
-  password_strength (~> 1.1.1)
+  paper_trail (~> 4.0, >= 4.0.1)
+  password_strength (~> 1.1, >= 1.1.1)
   pg
-  premailer-rails (~> 1.9.0)
-  rails (~> 4.2.5)
+  pnotify-rails (~> 3.0)
+  premailer-rails (~> 1.8, >= 1.8.2)
+  rails (~> 4.2, >= 4.2.5)
   rails-i18n (~> 4.0.0)
   rails_12factor
   rails_admin (~> 0.8.1)

@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require trix
+//= require pnotify
 //= require_tree .
 
 // Push the transcription form down to make way for the menu when it expands.
