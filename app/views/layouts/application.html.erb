@@ -46,6 +46,13 @@
       <script>
           PNotify.prototype.options.styling = "bootstrap3";
 
+          // Centering the notification
+          // https://github.com/sciactive/pnotify/issues/46
+          var stackCenter = {"dir1": "down", "dir2": "right", "firstpos1": 25, "firstpos2": ($(window).width() / 2) - (Number(PNotify.prototype.options.width.replace(/\D/g, '')) / 2)};
+          $(window).resize(function(){
+              stackCenter.firstpos2 = ($(window).width() / 2) - (Number(PNotify.prototype.options.width.replace(/\D/g, '')) / 2);
+          });
+
           <% if notice.present? %>
               $(function(){
                   new PNotify({
@@ -53,7 +60,8 @@
                       text: '<%= notice %>',
                       delay: 3000,
                       animate_speed: 'fast',
-                      icon: false
+                      icon: false,
+                      stack: stackCenter
                   });
               });
           <% end %>
@@ -62,7 +70,8 @@
               $(function(){
                   new PNotify({
                       type: 'error',
-                      text: '<%= alert %>'
+                      text: '<%= alert %>',
+                      stack: stackCenter
                   });
               });
           <% end %>
