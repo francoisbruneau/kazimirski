@@ -260,16 +260,16 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.1)
   byebug
   capistrano-rails
-  devise (~> 3.5, >= 3.5.3)
+  devise (~> 3.5.3)
   dotenv-rails
   font-awesome-rails (~> 4.5)
   jquery-rails
-  paper_trail (~> 4.0, >= 4.0.1)
-  password_strength (~> 1.1, >= 1.1.1)
+  paper_trail (~> 4.0.1)
+  password_strength (~> 1.1.1)
   pg
   pnotify-rails (~> 3.0)
-  premailer-rails (~> 1.8, >= 1.8.2)
-  rails (~> 4.2, >= 4.2.5)
+  premailer-rails (~> 1.9.0)
+  rails (~> 4.2.5)
   rails-i18n (~> 4.0.0)
   rails_12factor
   rails_admin (~> 0.8.1)
