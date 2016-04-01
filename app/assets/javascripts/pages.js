@@ -100,6 +100,8 @@ var keyUpHandler = function (e) {
         setTimeout(function() {
             KZ.scheduledAutocorrect = false;
 
+            // Refresh the current range since it may have changed in the last 250ms (execution delay for the autocorrect)
+            currentRange = KZ.trixEditorElement.editor.getSelectedRange();
             var document = KZ.trixEditorElement.editor.getDocument();
             var str = document.toString();
 
