@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Projet Kazimirski</title>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
 
     <%= csrf_meta_tags %>
   </head>
@@ -40,7 +40,7 @@
 
   <%= yield %>
 
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag "application", params[:controller] %>
 
     <% if notice.present? || alert.present? %>
       <script>

@@ -15,7 +15,7 @@
 //= require bootstrap
 //= require trix
 //= require pnotify
-//= require_tree .
+//= require js.cookie
 
 // Push the transcription form down to make way for the menu when it expands.
 jQuery(document).ready(function() {
