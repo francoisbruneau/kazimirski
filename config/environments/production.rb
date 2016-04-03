@@ -59,17 +59,7 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
-  config.action_mailer.delivery_method = :smtp
-
-  config.action_mailer.smtp_settings = {
-      address: ENV.fetch("SMTP_ADDRESS"),
-      authentication: 'login',
-      domain: ENV.fetch("SMTP_DOMAIN"),
-      enable_starttls_auto: true,
-      password: ENV.fetch("SMTP_PASSWORD"),
-      port: 587,
-      user_name: ENV.fetch("SMTP_USERNAME")
-  }
+  config.action_mailer.delivery_method = :sparkpost
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
