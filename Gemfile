@@ -21,7 +21,6 @@ gem 'devise', '~> 3.5.3'
 gem 'password_strength', '~> 1.1.1'
 gem 'rails-i18n', '~> 4.0.0'
 
-gem 'sparkpost_rails'
 gem 'premailer-rails', '~> 1.9.0'
 
 gem 'paper_trail', '~> 4.1.0'
