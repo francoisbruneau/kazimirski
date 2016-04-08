@@ -9,7 +9,7 @@ gem 'pg'
 gem 'jquery-rails'
 gem 'pnotify-rails', '~> 3.0'
 
-gem 'sprockets', '~> 3.0'
+gem 'sprockets', '~> 3.6.0'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'sass-rails', '~> 5.0.4'
 gem 'bootstrap-sass', '~> 3.3.6'
