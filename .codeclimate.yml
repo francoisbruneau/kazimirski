@@ -14,10 +14,19 @@ engines:
       - php
   eslint:
     enabled: true
+    exclude_fingerprints:
+    - a58b603a45695c762769a679aeca5a6d
+    - 3f4b1706f227958ec9684b477d2c5877
+    - 2bd720544d244024e5019f7b596236e9
+    - ffd9a9db83a363a729bb6e8baa419918
   fixme:
     enabled: true
   rubocop:
     enabled: true
+    exclude_fingerprints:
+    - c163072a100bae076a4ccabf5329e0f2
+    - 1572ecbe9772252bd3b598e660896f3f
+    - e3cb366467d61afc35e2a2c9f0ab8fee
 ratings:
   paths:
   - Gemfile.lock
