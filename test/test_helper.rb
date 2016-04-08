@@ -7,7 +7,6 @@ require 'capybara/poltergeist'
 Capybara.default_driver =:poltergeist
 
 # Uncomment to rebuild the test DB every time the tests are launched
-Rake::Task["db:setup"].invoke
 #Rake::Task["db:reset"].invoke
 #load "#{Rails.root}/db/seeds.rb"
 
