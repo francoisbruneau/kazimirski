@@ -22,3 +22,5 @@
 # Ignore OS X files
 .DS_store
 
+# Ignore code coverage reports
+coverage
