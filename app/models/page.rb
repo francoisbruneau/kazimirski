@@ -10,12 +10,17 @@ class Page < ActiveRecord::Base
   scope :not_transcribed_by, ->(user_id) { where("transcriber_id != ?", user_id) }
 
   validates :book_nr, :source_page_nr, numericality: true, presence: true
+  validate :reviewer_id_cannot_be_same_as_transcriber_id
 
   before_save :sanitize_content
 
   has_paper_trail
 
-  # TODO: Validate reviewer_id differs from transcriber_id
+  def reviewer_id_cannot_be_same_as_transcriber_id
+    if reviewer_id.present? && transcriber_id.present? && reviewer_id == transcriber_id
+      errors.add(:reviewer_id, "can't be the same as transcriber_id")
+    end
+  end
 
   def self.percent_validated
     self.reviewed.count*1.0 / self.count * 100.0
