@@ -38,17 +38,25 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'unicorn'
 
-gem 'capistrano-rails', group: :development
 gem 'rails_12factor', group: :production
 
-group :development, :test do
-  # Load environment variables from .env into ENV in development.
-  gem 'dotenv-rails'
-
+group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console'
+
+  gem 'capistrano-rails'
 end
 
+group :development, :test do
+  # Load environment variables from .env into ENV in development.
+  gem 'dotenv-rails'
+end
+
+group :test do
+  # PhantomJS driver to perform acceptance tests
+  gem 'poltergeist'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
+end

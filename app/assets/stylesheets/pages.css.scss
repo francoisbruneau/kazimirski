@@ -1,6 +1,6 @@
 // http://stackoverflow.com/questions/7768269/ipad-safari-disable-scrolling-and-bounce-effect
-body,
-html {
+body.fixed,
+html.fixed {
   position: fixed;
 }
 
