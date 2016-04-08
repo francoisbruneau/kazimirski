@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/francoisbruneau/kazimirski/badges/gpa.svg)](https://codeclimate.com/github/francoisbruneau/kazimirski)
+
 # Setup
 
 ## Clone code
