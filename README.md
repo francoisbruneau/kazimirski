@@ -1,5 +1,6 @@
 # Kazimirski
 
+[![codecov.io](https://codecov.io/github/francoisbruneau/kazimirski/coverage.svg?branch=master)](https://codecov.io/github/francoisbruneau/kazimirski?branch=master)
 [![Build Status](https://travis-ci.org/francoisbruneau/kazimirski.svg?branch=master)](https://travis-ci.org/francoisbruneau/kazimirski)
 [![Dependency Status](https://gemnasium.com/badges/github.com/francoisbruneau/kazimirski.svg)](https://gemnasium.com/github.com/francoisbruneau/kazimirski)
 [![Code Climate](https://codeclimate.com/github/francoisbruneau/kazimirski/badges/gpa.svg)](https://codeclimate.com/github/francoisbruneau/kazimirski)
