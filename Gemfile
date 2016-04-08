@@ -56,6 +56,9 @@ group :development, :test do
 end
 
 group :test do
+  # Code coverage
+  gem 'codecov', :require => false
+
   # PhantomJS driver to perform acceptance tests
   gem 'poltergeist'
   gem 'phantomjs', :require => 'phantomjs/poltergeist'
