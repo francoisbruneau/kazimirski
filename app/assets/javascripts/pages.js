@@ -38,12 +38,12 @@ function pasteHtmlAtCaret(html, selectPastedContent) {
                 sel.addRange(range);
             }
         }
-    } else if ( (sel = document.selection) && sel.type != "Control") {
+    } else if ( (sel = document.selection) && sel.type !== "Control") {
         // IE < 9
         var originalRange = sel.createRange();
         originalRange.collapse(true);
         sel.createRange().pasteHTML(html);
-        var range = sel.createRange();
+        range = sel.createRange();
         range.setEndPoint("StartToStart", originalRange);
         range.select();
     }
@@ -107,7 +107,7 @@ var keyUpHandler = function (e) {
 
             var i;
             var length = str.length;
-            var previousCharCode = undefined;
+            var previousCharCode;
             for (i = 0; i < length; i++) {
                 var charCode = str.charCodeAt(i);
 
