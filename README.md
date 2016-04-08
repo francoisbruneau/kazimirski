@@ -1,47 +1,49 @@
+# Kazimirski
+
 [![Code Climate](https://codeclimate.com/github/francoisbruneau/kazimirski/badges/gpa.svg)](https://codeclimate.com/github/francoisbruneau/kazimirski)
 
-# Setup
+## Setup
 
-## Clone code
+### Clone code
 
     git clone git@github.com:francoisbruneau/kazimirski.git
 
-## Install VirtualBox, Vagrant and Ansible
+### Install VirtualBox, Vagrant and Ansible
 * VirtualBox: https://www.virtualbox.org/wiki/Downloads
 * Vagrant: https://www.vagrantup.com/downloads.html
 * Ansible: http://docs.ansible.com/intro_installation.html#latest-releases-via-apt-ubuntu
 
-## Config
+### Config
 Create a .env file in the project folder and add:
 
     RACK_ENV=development
     PORT=5000
 
-## Start Vagrant box
+### Start Vagrant box
 
     vagrant up
 
-## Start server
+### Start server
 
-### ssh Vagrant box
+#### ssh Vagrant box
 
     vagrant ssh
     
-### Create tables and seed them with sample data
+#### Create tables and seed them with sample data
 
     rake db:setup
 
-### Run mailcatcher if you want to test emails locally
+#### Run mailcatcher if you want to test emails locally
 
     mailcatcher --http-ip=0.0.0.0
 
-### Run server
+#### Run server
 
     foreman start
 
 Go to [http://localhost:5000](http://localhost:5000)
 
-# Acknowledgements
+## Acknowledgements
 
 Thanks to @noefroidevaux for the base Vagrant/Ansible/Ruby/Rails setup:
 https://github.com/noefroidevaux/rails-workshop
