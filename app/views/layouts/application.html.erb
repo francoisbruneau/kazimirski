@@ -62,7 +62,7 @@
                       animate_speed: 'fast',
                       icon: false,
                       stack: stackCenter,
-                      hide: <% if notice != I18n.t('devise.registrations.signed_up_but_unconfirmed') %>false<% else %>true<% end %>
+                      hide: <% if notice == I18n.t('devise.registrations.signed_up_but_unconfirmed') %>false<% else %>true<% end %>
                   });
               });
           <% end %>
