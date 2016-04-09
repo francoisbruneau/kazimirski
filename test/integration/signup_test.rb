@@ -1,5 +1,7 @@
 require 'test_helper'
 
+# NOTE: This test will fail if CAPTCHA_xxx environment variables are not set.
+
 class SignupTest < ActionDispatch::IntegrationTest
   test "A user can signup, pass the captcha, confirm his acccount, login, and automatically get the Transcriber role" do
     visit root_path
