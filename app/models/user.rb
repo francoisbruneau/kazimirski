@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
 
   after_create :send_new_sign_up_notification_mail
 
+  def is_transcriber?
+    self.role.name == 'transcriber'
+  end
+
   def is_reviewer?
     self.role.name == 'reviewer'
   end

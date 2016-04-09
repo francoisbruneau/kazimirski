@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class LoginTest < ActionDispatch::IntegrationTest
-  test "login and browse site" do
+  test "A user can login and access the dashboard." do
     visit root_path
 
     click_link 'Connexion'

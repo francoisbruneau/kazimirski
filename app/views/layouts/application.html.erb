@@ -61,7 +61,8 @@
                       delay: 3000,
                       animate_speed: 'fast',
                       icon: false,
-                      stack: stackCenter
+                      stack: stackCenter,
+                      hide: <% if notice != I18n.t('devise.registrations.signed_up_but_unconfirmed') %>false<% else %>true<% end %>
                   });
               });
           <% end %>
