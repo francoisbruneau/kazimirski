@@ -19,6 +19,7 @@ class SignupTest < ActionDispatch::IntegrationTest
     fill_in 'Confirmation du mot de passe', with: password
     click_button "S'inscrire"
 
+    p I18n.t('devise.registrations.signed_up_but_unconfirmed')
     assert page.has_content?(I18n.t('devise.registrations.signed_up_but_unconfirmed')), 'Prompt to check inbox for confirmation email not shown.'
 
 
