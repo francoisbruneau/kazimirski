@@ -14,14 +14,14 @@ gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'sass-rails', '~> 5.0.4'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'trix', '~> 0.9.4'
-gem 'font-awesome-rails', '~> 4.5'
+gem 'font-awesome-rails', '~> 4.6.1'
 
 gem 'simple_form', '~> 3.2.1'
 gem 'devise', '~> 3.5.3'
 gem 'password_strength', '~> 1.1.1'
 gem 'rails-i18n', '~> 4.0.0'
 
-gem 'premailer-rails', '~> 1.9.0'
+gem 'premailer-rails', '~> 1.9.2'
 
 gem 'paper_trail', '~> 4.1.0'
 gem 'rails_admin', '~> 0.8.1'
