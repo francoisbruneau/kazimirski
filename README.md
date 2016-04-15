@@ -21,6 +21,9 @@ Create a .env file in the project folder and add:
 
     RACK_ENV=development
     PORT=5000
+    CAPTCHA_9ad39f737b804013809c6945dbd23355=answer1
+    CAPTCHA_ffa971d9f127408b88c47c734b7ddfbd=answer2
+    CAPTCHA_71074c5ee3ee4b0485ef6a860f55828a=answer3
 
 ### Start Vagrant box
 
