@@ -5,6 +5,22 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/francoisbruneau/kazimirski.svg)](https://gemnasium.com/github.com/francoisbruneau/kazimirski)
 [![Code Climate](https://codeclimate.com/github/francoisbruneau/kazimirski/badges/gpa.svg)](https://codeclimate.com/github/francoisbruneau/kazimirski)
 
+The Kazimirski web application aims to facilitate crowdsourced transcription of scanned pages into digitized text, when OCRs do not produce reliable output (ex: handwritten text, old typography, or a combination of both such as in the [Kazimirski dictionary](https://archive.org/details/dictionnairearab01bibeuoft)).  
+
+## Features
+
+* Side-by-side transcription UI embedding [Internet Archive](https://archive.org/)'s viewer
+* Custom text input logic handling specificities of bi-directional text in a dictionary
+* Integration of [Trix](https://github.com/basecamp/trix) WYSIWYG editor with minimal formatting & server-side markup sanitization
+* Simple checkout-submit-review workflow for contributed pages
+* Straightforward role system: 
+  * Transcribers can submit pages
+  * Reviewers can review, correct and accept pages 
+  * Admins can access the management backend
+* Dashboard with overview of overall progress
+* Email notifications
+* Custom CAPTCHA with bi-directional text
+
 ## Setup
 
 ### Clone code
@@ -12,9 +28,9 @@
     git clone git@github.com:francoisbruneau/kazimirski.git
 
 ### Install VirtualBox, Vagrant and Ansible
-* VirtualBox: https://www.virtualbox.org/wiki/Downloads
-* Vagrant: https://www.vagrantup.com/downloads.html
-* Ansible: http://docs.ansible.com/intro_installation.html#latest-releases-via-apt-ubuntu
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant](https://www.vagrantup.com/downloads.html)
+* [Ansible](http://docs.ansible.com/intro_installation.html#latest-releases-via-apt-ubuntu)
 
 ### Config
 Create a .env file in the project folder and add:
