@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
   end
 
   def checkout(page)
+    # TODO: Prevent checking out a new page page before submitting the current one
     page.checked_out_at = Time.now
     page.transcriber_id = self.id
     page.save

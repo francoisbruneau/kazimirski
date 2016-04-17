@@ -11,7 +11,10 @@
         <div class="row-same-height row-full-height">
             <div class="col-xs-6 col-xs-height col-full-height col-scan">
               <div class="scanned-image-container">
-                <iframe class="scanned-image" src="<%= @page.viewer_url %>"></iframe>
+                <%# Do not load archive.org's iframe during tests as it not in the scope of tests, and can cause timeouts %>
+                <% if !Rails.env.test? %>
+                    <iframe class="scanned-image" src="<%= @page.viewer_url %>"></iframe>
+                <% end %>
               </div>
             </div>
             <div class="col-xs-6 col-xs-height col-full-height col-input">
@@ -22,8 +25,8 @@
 
       <div class="pull-right bottom-bar">
         <% submit_label = @page.reviewer == current_user ? 'Valider cette page comme correcte' : 'Envoyer cette page pour relecture' %>
-        <%= f.button :submit, 'Enregistrer les changements', class: 'btn-default', name: 'save_as_draft'  %>
-        <%= f.button :submit, submit_label, class: 'btn-info', name: 'commit'  %>
+        <%= f.button :submit, 'Enregistrer les changements', class: 'btn-default', id: 'save-as-draft', name: 'save-as-draft'  %>
+        <%= f.button :submit, submit_label, class: 'btn-info', id: 'commit', name: 'commit'  %>
       </div>
 
 <% end %>
@@ -57,7 +60,7 @@
         <p>L'équipe du Projet Kazimirski</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-default" id="modal-dismiss" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>

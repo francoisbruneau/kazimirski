@@ -21,6 +21,16 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # fixtures :all
 
+  def login_as_transcriber
+    visit root_path
+
+    click_link 'Connexion'
+
+    fill_in 'Email', with: 'transcriber@kazimirski.fr'
+    fill_in 'Mot de passe', with: 'password'
+    click_button 'Se connecter'
+  end
+
   # Add more helper methods to be used by all tests here...
 end
 

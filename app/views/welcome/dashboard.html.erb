@@ -7,9 +7,9 @@
   <p>Vous avez transcrit <%= current_user.submitted_pages.count %> pages, dont <%= current_user.integrated_pages.count %> ont été validées et <%= current_user.submitted_pages.pending_review.count %> sont en attente de validation.</p>
 
   <% if current_user.has_draft_page? %>
-      <p>Vous avez commencé la transcription d'une page. Voulez-vous <%= link_to "reprendre maintenant ?", edit_page_path(current_user.draft_page) %></p>
+      <p>Vous avez commencé la transcription d'une page. Voulez-vous <%= link_to "reprendre maintenant ?", edit_page_path(current_user.draft_page), :id => 'resume-transcription' %></p>
   <% elsif Page.not_checked_out.count > 0 %>
-      <p><%= link_to "Transcrire une nouvelle page", checkout_pages_path, :method => :patch, :class => 'btn btn-info', :role => 'button' %></p>
+      <p><%= link_to "Transcrire une nouvelle page", checkout_pages_path, :method => :patch, :class => 'btn btn-info', :id => 'start-transcription', :role => 'button' %></p>
   <% end %>
 
   <% if current_user.is_reviewer? %>
