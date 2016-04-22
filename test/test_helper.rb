@@ -31,6 +31,26 @@ class ActiveSupport::TestCase
     click_button 'Se connecter'
   end
 
+  def open_transcription_interface
+    login_as_transcriber
+
+    if page.has_selector?('#start-transcription')
+      click_on 'start-transcription'
+    else
+      click_on 'resume-transcription'
+    end
+
+    if page.has_selector?('body.modal-open')
+      click_button 'modal-dismiss'
+    end
+  end
+
+  def arabic_lorem_words
+    path = File.join(Rails.root, 'lib', 'assets', 'arabic-lorem.txt')
+    text = File.read(path)
+    text.split
+  end
+
   # Add more helper methods to be used by all tests here...
 end
 
