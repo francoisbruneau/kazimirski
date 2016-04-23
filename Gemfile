@@ -61,5 +61,4 @@ group :test do
 
   # PhantomJS driver to perform acceptance tests
   gem 'poltergeist'
-  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 end

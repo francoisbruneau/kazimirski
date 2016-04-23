@@ -136,7 +136,6 @@ GEM
     password_strength (1.1.3)
       activemodel
     pg (0.18.4)
-    phantomjs (2.1.1.0)
     pnotify-rails (3.0.0)
     poltergeist (1.9.0)
       capybara (~> 2.1)
@@ -286,7 +285,6 @@ DEPENDENCIES
   paper_trail (~> 4.1.0)
   password_strength (~> 1.1.3)
   pg
-  phantomjs
   pnotify-rails (~> 3.0)
   poltergeist
   premailer-rails (~> 1.9.2)
