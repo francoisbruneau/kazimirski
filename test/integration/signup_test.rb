@@ -24,8 +24,10 @@ class SignupTest < ActionDispatch::IntegrationTest
     assert page.has_content?(I18n.t('devise.registrations.signed_up_but_unconfirmed')), 'Prompt to check inbox for confirmation email not shown.'
 
 
+    confirmation_emails = ActionMailer::Base.deliveries.select{|d| d.subject == 'Instructions de confirmation'}
+    assert confirmation_emails.length == 1
 
-    confirmation_email = ActionMailer::Base.deliveries.first
+    confirmation_email = confirmation_emails.first
     to_field = confirmation_email.to.first
 
     assert to_field == email, 'Confirmation email was not sent.'
