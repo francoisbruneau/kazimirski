@@ -11,6 +11,11 @@ require 'rails/test_help'
 
 require "capybara/rails"
 require 'capybara/poltergeist'
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+end
+
 Capybara.default_driver =:poltergeist
 
 # Uncomment to rebuild the test DB every time the tests are launched
