@@ -11,13 +11,6 @@ require 'rails/test_help'
 
 require "capybara/rails"
 require 'capybara/poltergeist'
-
-Capybara.default_wait_time = 15
-
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {js_errors: false, timeout: 15})
-end
-
 Capybara.default_driver =:poltergeist
 
 # Uncomment to rebuild the test DB every time the tests are launched
