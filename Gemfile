@@ -25,7 +25,7 @@ gem 'premailer-rails', '~> 1.9.2'
 
 gem 'paper_trail', '~> 4.1.0'
 gem 'rails_admin', '~> 0.8.1'
-gem 'rails_admin_history_rollback', '~> 0.0.6'
+gem 'rails_admin_history_rollback', '~> 0.0.7'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

@@ -193,7 +193,7 @@ GEM
       remotipart (~> 1.0)
       safe_yaml (~> 1.0)
       sass-rails (>= 4.0, < 6)
-    rails_admin_history_rollback (0.0.6)
+    rails_admin_history_rollback (0.0.7)
       paper_trail (>= 3.0.6)
       rails (~> 4.2.0)
       rails_admin (>= 0.6.6)
@@ -292,7 +292,7 @@ DEPENDENCIES
   rails-i18n (~> 4.0.0)
   rails_12factor
   rails_admin (~> 0.8.1)
-  rails_admin_history_rollback (~> 0.0.6)
+  rails_admin_history_rollback (~> 0.0.7)
   sass-rails (~> 5.0.4)
   sdoc (~> 0.4.0)
   simple_form (~> 3.2.1)
