@@ -72,4 +72,42 @@ class InputTest < ActionDispatch::IntegrationTest
     assert saved_char_codes == expected_char_codes
   end
 
+  test "Text style is automatically reset when starting a new paragraph" do
+    # TODO This one is tricky to make, due to Trix's deactivateAttribute("italic") apparently not working in PhantomJS
+    # Skipping it for now
+    return
+
+
+    open_transcription_interface
+
+    element = find('trix-editor')
+    element.native.send_key('Starting a sentence in normal text ')
+
+    # switch to italic
+    click_button 'Italic'
+
+    page.save_screenshot("/vagrant/page.png", :full => true)
+
+    # Sort of a hack. If sending all keys at once, the italic style is disabled before the first character.
+    element.native.send_key('c')
+    element.native.send_key('ontinuing it in italic.')
+
+    page.save_screenshot("/vagrant/page2.png", :full => true)
+    sleep 1
+
+    element.native.send_key(:Enter)
+    page.save_screenshot("/vagrant/page3.png", :full => true)
+
+    sleep 1
+    page.save_screenshot("/vagrant/page4.png", :full => true)
+
+    element.native.send_key('A')
+    page.save_screenshot("/vagrant/page5.png", :full => true)
+
+    #element.native.send_key('fter a carriage return, the text should be normal again.')
+
+    val = element.value
+    p val
+  end
+
 end
