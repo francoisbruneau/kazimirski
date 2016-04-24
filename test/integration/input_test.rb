@@ -110,4 +110,29 @@ class InputTest < ActionDispatch::IntegrationTest
     p val
   end
 
+  test "Normal dashes are replaced by long ones (em dashes 0x2014) after the auto-correct delay" do
+    open_transcription_interface
+    element = find('trix-editor')
+
+    element.native.send_key('One ', '-', ' two ', '-', ' three.')
+
+    sleep 1
+
+    val = element.value
+    val.gsub!('<div>', '').gsub!('</div>', '')
+    char_codes = val.chars.map{|c| c.ord}
+
+    # Dashes are automatically prefixed with a left-to-right mark (0x200E)
+    expected_char_codes = 'One '.chars.map{|c| c.ord} + [0x200E] + [0x2014] + ' two '.chars.map{|c| c.ord} + [0x200E] + [0x2014] + ' three.'.chars.map{|c| c.ord}
+
+    assert char_codes == expected_char_codes
+
+    click_on 'commit'
+
+    saved_page = Page.order(updated_at: :desc).first
+    saved_char_codes = saved_page.content.chars.map{|c| c.ord}
+
+    assert saved_char_codes == expected_char_codes
+  end
+
 end

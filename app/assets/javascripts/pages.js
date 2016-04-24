@@ -65,7 +65,7 @@ var keyPressHandler = function (e) {
     // as a right-to-left sentence, and the words order is reversed.
     // To fix this, we insert a left-to-right mark before each comma character
     // in order to force a left-to-right word sequence.
-    if (charTyped === ',' || charTyped === '-') {
+    if (charTyped === ',' || charTyped === '-' || charTyped === '—') {
         // Insert a left-to-right mark (U+200E) then the actual comma
         pasteHtmlAtCaret('&#x200E;', false);
     }
