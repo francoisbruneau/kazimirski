@@ -47,13 +47,20 @@ class User < ActiveRecord::Base
   end
 
   def checkout(page)
-    # TODO: Prevent checking out a new page page before submitting the current one
+    # Prevent checking out a new page before submitting the current one
+    if self.has_draft_page?
+      raise "Can not checkout more than one page at once."
+    end
     page.checked_out_at = Time.now
     page.transcriber_id = self.id
     page.save
   end
 
   def start_review(page)
+    # Prevent starting to review a new page before validating the current one
+    if self.has_started_a_review?
+      raise "Can not review more than one page at once."
+    end
     page.reviewer_id = self.id
     page.save
   end
