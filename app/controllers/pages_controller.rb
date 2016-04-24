@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_page, only: [:edit, :update]
+  before_action :authorize_access, only: [:edit, :update]
 
   def checkout
     @page = Page.not_checked_out.first
@@ -8,27 +10,20 @@ class PagesController < ApplicationController
   end
 
   def start_review
-    @page = Page.pending_review.not_transcribed_by(current_user.id).first
-    current_user.start_review(@page)
-    redirect_to edit_page_path(@page)
-  end
-
-  def edit
-    @page = Page.find(params[:id])
-    if @page.in_transcription_by?(current_user)
-      logger.info "User #{current_user.id} transcribing page #{@page.id}..."
-    elsif current_user.is_reviewer? && @page.in_review_by?(current_user)
-      logger.info "User #{current_user.id} reviewing page #{@page.id}..."
-    elsif current_user.is_admin?
-      logger.info "Admin #{current_user.id} editing page #{@page.id}..."
+    if current_user.is_reviewer?
+      @page = Page.pending_review.not_transcribed_by(current_user.id).first
+      current_user.start_review(@page)
+      redirect_to edit_page_path(@page)
     else
-      logger.info "Unauthorized attempt by user #{current_user.id} to edit page #{@page.id}."
+      logger.info "Unauthorized attempt by non-reviewer user #{current_user.id} to start reviewing page #{@page.id}."
       permission_denied
     end
   end
 
+  def edit
+  end
+
   def update
-    @page = Page.find(params[:id])
     @page.content = params[:page][:content]
 
     if params[:commit].present?
@@ -47,6 +42,25 @@ class PagesController < ApplicationController
 
     @page.save
     redirect_to root_path
+  end
+
+  private
+
+  def find_page
+    @page = Page.find(params[:id])
+  end
+
+  def authorize_access
+    if @page.in_transcription_by?(current_user)
+      logger.info "User #{current_user.id} transcribing page #{@page.id}..."
+    elsif current_user.is_reviewer? && @page.in_review_by?(current_user)
+      logger.info "User #{current_user.id} reviewing page #{@page.id}..."
+    elsif current_user.is_admin?
+      logger.info "Admin #{current_user.id} editing page #{@page.id}..."
+    else
+      logger.info "Unauthorized attempt by user #{current_user.id} to edit page #{@page.id}."
+      permission_denied
+    end
   end
 
 end
