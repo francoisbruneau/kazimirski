@@ -73,10 +73,9 @@ class InputTest < ActionDispatch::IntegrationTest
   end
 
   test "Text style is automatically reset when starting a new paragraph" do
-    # TODO This one is tricky to make, due to Trix's deactivateAttribute("italic") apparently not working in PhantomJS
-    # ...
-    # The italic style is mysteriously disabled when PhantomJS sends more than one key event at once
-    # ...
+    # TODO This one is tricky to make,
+    # due to Trix's deactivateAttribute("italic") not working in PhantomJS
+    # when the range is 0-char length.
     # Skipping it for now
     return
 
@@ -92,8 +91,9 @@ class InputTest < ActionDispatch::IntegrationTest
     page.save_screenshot("/vagrant/page.png", :full => true)
 
     # Sort of a hack. If sending all keys at once, the italic style is disabled before the first character.
-    element.native.send_key('c')
-    element.native.send_key('ontinuing it in italic.')
+    'continuing it in italic.'.chars.each do |c|
+      element.native.send_key c
+    end
 
     page.save_screenshot("/vagrant/page2.png", :full => true)
     sleep 1
@@ -104,10 +104,12 @@ class InputTest < ActionDispatch::IntegrationTest
     sleep 1
     page.save_screenshot("/vagrant/page4.png", :full => true)
 
-    element.native.send_key('A')
+    'After a carriage return, the text should be normal again.'.chars.each do |c|
+      element.native.send_key c
+    end
+
     page.save_screenshot("/vagrant/page5.png", :full => true)
 
-    #element.native.send_key('fter a carriage return, the text should be normal again.')
 
     val = element.value
     p val

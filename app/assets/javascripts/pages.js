@@ -102,8 +102,8 @@ var keyUpHandler = function (e) {
 
             // Refresh the current range since it may have changed in the last 250ms (execution delay for the autocorrect)
             currentRange = KZ.trixEditorElement.editor.getSelectedRange();
-            var document = KZ.trixEditorElement.editor.getDocument(),
-                str = document.toString(),
+            var doc = KZ.trixEditorElement.editor.getDocument(),
+                str = doc.toString(),
                 i,
                 length = str.length,
                 previousCharCode, antePreviousCharCode;
