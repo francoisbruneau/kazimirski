@@ -116,7 +116,7 @@ class InputTest < ActionDispatch::IntegrationTest
 
     element.native.send_key('One ', '-', ' two ', '-', ' three.')
 
-    sleep 1
+    sleep 0.25
 
     val = element.value
     val.gsub!('<div>', '').gsub!('</div>', '')
@@ -124,6 +124,40 @@ class InputTest < ActionDispatch::IntegrationTest
 
     # Dashes are automatically prefixed with a left-to-right mark (0x200E)
     expected_char_codes = 'One '.chars.map{|c| c.ord} + [0x200E] + [0x2014] + ' two '.chars.map{|c| c.ord} + [0x200E] + [0x2014] + ' three.'.chars.map{|c| c.ord}
+
+    assert char_codes == expected_char_codes
+
+    click_on 'commit'
+
+    saved_page = Page.order(updated_at: :desc).first
+    saved_char_codes = saved_page.content.chars.map{|c| c.ord}
+
+    assert saved_char_codes == expected_char_codes
+  end
+
+  test "Normal spaces between arabic words are replaced by non-breaking ones after the auto-correct delay" do
+    open_transcription_interface
+    element = find('trix-editor')
+
+    words = arabic_lorem_words
+    element.native.send_key('Hello', :Space, words.first, :Space , words.second, :Space, words.third, :Space, 'Goodbye')
+
+    sleep 0.25
+
+    val = element.value
+    val.gsub!('<div>', '').gsub!('</div>', '')
+    char_codes = val.chars.map{|c| c.ord}
+
+    # Each regular space between arabic words is replaced by three narrow non-break spaces
+    expected_char_codes = 'Hello'.chars.map{|c| c.ord} \
+                          + [0x0020] \
+                          + words.first.chars.map{|c| c.ord} \
+                          + [0x202F] \
+                          + words.second.chars.map{|c| c.ord} \
+                          + [0x202F] \
+                          + words.third.chars.map{|c| c.ord} \
+                          + [0x0020] \
+                          + 'Goodbye'.chars.map{|c| c.ord}
 
     assert char_codes == expected_char_codes
 

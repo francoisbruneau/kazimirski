@@ -102,12 +102,12 @@ var keyUpHandler = function (e) {
 
             // Refresh the current range since it may have changed in the last 250ms (execution delay for the autocorrect)
             currentRange = KZ.trixEditorElement.editor.getSelectedRange();
-            var document = KZ.trixEditorElement.editor.getDocument();
-            var str = document.toString();
+            var document = KZ.trixEditorElement.editor.getDocument(),
+                str = document.toString(),
+                i,
+                length = str.length,
+                previousCharCode, antePreviousCharCode;
 
-            var i;
-            var length = str.length;
-            var previousCharCode;
             for (i = 0; i < length; i++) {
                 var charCode = str.charCodeAt(i);
 
@@ -121,14 +121,21 @@ var keyUpHandler = function (e) {
                 // Replace regular space between two arabic compound words
                 // by a narrow no-break space
                 // in order to separate word parts without indicating a word boundary.
-                else if (charCode === 32 && previousCharCode ) {
-                    if (previousCharCode >= 0x0600 && previousCharCode <= 0x06FF) {
-                        KZ.trixEditorElement.editor.setSelectedRange([i, i+1]);
+
+                // Note: For some reason the Unicode no-break space (U+00A0)
+                // does not prevent breaking between arabic words
+                // hence the hack to use three "narrow no-break" spaces (U+202F) instead.
+                else if (previousCharCode && antePreviousCharCode) {
+                    if (charCode >= 0x0600 && charCode <= 0x06FF && previousCharCode === 32 && antePreviousCharCode >= 0x0600 && antePreviousCharCode <= 0x06FF ) {
+                        KZ.trixEditorElement.editor.setSelectedRange([i-1, i]);
                         KZ.trixEditorElement.editor.insertString("\u202F");
 
-                        // Add two more narrow spaces for reading comfort
-                        KZ.trixEditorElement.editor.setSelectedRange([i+1, i+1]);
-                        KZ.trixEditorElement.editor.insertString("\u202F\u202F");
+                        // TODO: Add two more narrow spaces for reading comfort
+                        // Breaks the tests currently - can't seem to position these extra narrow spaces properly
+                        //
+                        // KZ.trixEditorElement.editor.setSelectedRange([i+2, i+2]);
+                        // KZ.trixEditorElement.editor.insertString("\u202F\u202F");
+                        // KZ.trixEditorElement.editor.insertString(" ");
 
                         // Restore the user's current range with a two character shift
                         // since two new characters were added.
@@ -138,6 +145,7 @@ var keyUpHandler = function (e) {
                         KZ.trixEditorElement.editor.setSelectedRange(adaptedRange);
                     }
                 }
+                antePreviousCharCode = previousCharCode;
                 previousCharCode = charCode;
             }
         }, 250);
