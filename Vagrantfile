@@ -13,6 +13,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Mailcatcher
   config.vm.network "forwarded_port", guest: 1080, host: 1080
 
+  # TODO: Provision rdoc gem
+  # RubyGems documentation server
+  config.vm.network "forwarded_port", guest: 8808, host: 8808
+
   config.ssh.forward_agent = true
 
   config.vm.provider "virtualbox" do |vb|
