@@ -74,6 +74,9 @@ class InputTest < ActionDispatch::IntegrationTest
 
   test "Text style is automatically reset when starting a new paragraph" do
     # TODO This one is tricky to make, due to Trix's deactivateAttribute("italic") apparently not working in PhantomJS
+    # ...
+    # The italic style is mysteriously disabled when PhantomJS sends more than one key event at once
+    # ...
     # Skipping it for now
     return
 
@@ -167,6 +170,32 @@ class InputTest < ActionDispatch::IntegrationTest
     saved_char_codes = saved_page.content.chars.map{|c| c.ord}
 
     assert saved_char_codes == expected_char_codes
+  end
+
+  test "Italic style is automatically disabled when user starts to type an arabic word" do
+    open_transcription_interface
+    element = find('trix-editor')
+
+    words = arabic_lorem_words
+
+    click_button 'Italic'
+
+    element.native.send_key('H')
+    element.native.send_key(words.first.chars.first)
+
+    val = element.value
+    val.gsub!('<div>', '').gsub!('</div>', '')
+
+    expected_val = '<em>H</em>' + words.first.chars.first
+
+    assert val == expected_val
+
+    click_on 'commit'
+
+    saved_page = Page.order(updated_at: :desc).first
+    saved_val = saved_page.content
+
+    assert saved_val == expected_val
   end
 
 end
