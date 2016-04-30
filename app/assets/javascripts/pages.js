@@ -129,6 +129,7 @@ var keyUpHandler = function (e) {
                     if (charCode >= 0x0600 && charCode <= 0x06FF && previousCharCode === 32 && antePreviousCharCode >= 0x0600 && antePreviousCharCode <= 0x06FF ) {
                         KZ.trixEditorElement.editor.setSelectedRange([i-1, i]);
                         KZ.trixEditorElement.editor.insertString("\u202F");
+                        KZ.trixEditorElement.editor.setSelectedRange(currentRange);
 
                         // TODO: Add two more narrow spaces for reading comfort
                         // Breaks the tests currently - can't seem to position these extra narrow spaces properly
