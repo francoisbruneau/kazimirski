@@ -111,13 +111,6 @@ var keyUpHandler = function (e) {
             for (i = 0; i < length; i++) {
                 var charCode = str.charCodeAt(i);
 
-                // Replace simple dash by long one
-                if (charCode === 45) {
-                    KZ.trixEditorElement.editor.setSelectedRange([i, i+1]);
-                    KZ.trixEditorElement.editor.insertString("—");
-                    KZ.trixEditorElement.editor.setSelectedRange(currentRange);
-                }
-
                 // Replace regular space between two arabic compound words
                 // by a narrow no-break space
                 // in order to separate word parts without indicating a word boundary.
@@ -125,7 +118,7 @@ var keyUpHandler = function (e) {
                 // Note: For some reason the Unicode no-break space (U+00A0)
                 // does not prevent breaking between arabic words
                 // hence the hack to use three "narrow no-break" spaces (U+202F) instead.
-                else if (previousCharCode && antePreviousCharCode) {
+                if (previousCharCode && antePreviousCharCode) {
                     if (charCode >= 0x0600 && charCode <= 0x06FF && previousCharCode === 32 && antePreviousCharCode >= 0x0600 && antePreviousCharCode <= 0x06FF ) {
                         KZ.trixEditorElement.editor.setSelectedRange([i-1, i]);
                         KZ.trixEditorElement.editor.insertString("\u202F");
