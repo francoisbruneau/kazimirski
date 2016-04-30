@@ -139,10 +139,10 @@ var keyUpHandler = function (e) {
 
                         // Restore the user's current range with a two character shift
                         // since two new characters were added.
-                        var adaptedRangeStart = currentRange[0] + 2;
-                        var adaptedRangeEnd = currentRange[1] + 2;
-                        var adaptedRange = [adaptedRangeStart, adaptedRangeEnd];
-                        KZ.trixEditorElement.editor.setSelectedRange(adaptedRange);
+                        //var adaptedRangeStart = currentRange[0] + 2;
+                        //var adaptedRangeEnd = currentRange[1] + 2;
+                        //var adaptedRange = [adaptedRangeStart, adaptedRangeEnd];
+                        //KZ.trixEditorElement.editor.setSelectedRange(adaptedRange);
                     }
                 }
                 antePreviousCharCode = previousCharCode;
